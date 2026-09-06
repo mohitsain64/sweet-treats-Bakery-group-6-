@@ -80,11 +80,27 @@ body {
 .nav-links a {
     text-decoration: none;
     color: var(--text-dark);
+    position: relative;
     transition: color 0.2s;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -6px;
+    left: 0;
+    background: #8C6D53;
+    transition: width 0.2s;
 }
 
 .nav-links a:hover {
     color: #8C6D53;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 .nav-actions {
@@ -102,6 +118,11 @@ body {
     border: 1px solid var(--border-light);
     gap: 8px;
     width: 220px;
+}
+
+.search-box:focus-within {
+    border-color: #8C6D53;
+    box-shadow: 0 0 0 3px rgba(140, 109, 83, 0.1);
 }
 
 .search-box input {
@@ -125,6 +146,7 @@ body {
 
 .wishlist-icon:hover {
     transform: scale(1.15);
+    color: #8C6D53;
 }
 
 .cart-btn {
