@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Treats Bakery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#home" class="brand">
+            <span class="brand-title">Sweet Treats</span>
+            <span class="brand-subtitle">Bakery</span>
+        </a> 
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Cakes</a></li>
+            <li><a href="#products">Pastries</a></li>
+            <li><a href="#custom-orders">Custom Orders</a></li>
+            <li><a href="#festive-boxes">Festive Boxes</a></li>
+            <li><a href="#about-us">About Us</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Search cakes...">
+            </div>
+            <button class="wishlist-icon" aria-label="Wishlist" >♡</button>
+            <button class="cart-btn">
+                🛒 Cart 
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Handcrafted Cakes & Pastries <span>Delivered to Your Doorstep</span></h1>
+            <p>Every bite tells a story of passion, premium ingredients, and decades of artisanal baking tradition. Order online and receive a freshly baked masterpiece at your door.</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn-primary-dark">Explore Menu →</a>
+                <a href="#custom-orders" class="btn-secondary-light">Custom Order</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p>Flavors</p>
+                </div>
+                <div class="stat-item">
+                    <h3>4.9★</h3>
+                    <p>Rated</p>
+                </div>
+                <div class="stat-item">
+                    <h3>10K+</h3>
+                    <p>Happy Customers</p>
+                </div>
+                <div class="stat-item">
+                    <h3>2 Hr</h3>
+                    <p>Express Delivery</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image-container">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80" alt="Dark Chocolate Drip Cake">
+            <div class="hero-badge-tag">
+                <span>Today's Special</span>
+                <strong>Dark Chocolate Drip</strong>
+            </div>
+        </div>
+    </section>
+
+    <div class="categories-bar">
+        <button class="category-pill active">All Cakes</button>
+        <button class="category-pill">Chocolate</button>
+        <button class="category-pill">Fruit Tarts</button>
+        <button class="category-pill">Eggless Specials</button>
+        <button class="category-pill">Pastries</button>
+        <button class="category-pill">Cupcakes</button>
+        <button class="category-pill">Cheesecakes</button>
+    </div>
+
+    <div class="section-container" id="products">
+        <div class="section-header">
+            <h2>Our Signature Delights</h2>
+            <p>Handpicked favorites loved by our community</p>
+        </div>
+    </div>
+
+    <div class="products-grid">
+        <div class="product-card">
+            <div class="product-img-wrapper">
+                <span class="card-tag">Bestseller</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80" alt="Dark Chocolate Drip Cake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn">0.5 kg</button>
+                    <button class="weight-btn active">1 kg</button>
+                    <button class="weight-btn">1.5 kg</button>
+                </div>
+                <div class="product-title">Dark Chocolate Drip Cake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.9</strong> (312)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹1,199</span>
+                    <span class="old-price">₹1,499</span>
+                    <span class="discount">20% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-img-wrapper">
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=500&q=80" alt="Strawberry Chiffon Cake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">0.5 kg</button>
+                    <button class="weight-btn">1 kg</button>
+                </div>
+                <div class="product-title">Strawberry Chiffon Cake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.8</strong> (204)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹899</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-img-wrapper">
+                <span class="card-tag">Bestseller</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=500&q=80" alt="Belgian Chocolate Truffle">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn">0.5 kg</button>
+                    <button class="weight-btn active">1 kg</button>
+                    <button class="weight-btn">2 kg</button>
+                </div>
+                <div class="product-title">Belgian Chocolate Truffle</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.9</strong> (478)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹1,299</span>
+                    <span class="old-price">₹1,599</span>
+                    <span class="discount">19% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-img-wrapper">
+                <span class="card-tag" style="background:whitesmoke; color:blue;">Seasonal</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80" alt="Mixed Berry Tart">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">6 Inch</button>
+                    <button class="weight-btn">8 Inch</button>
+                </div>
+                <div class="product-title">Mixed Berry Tart</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.7</strong> (156)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹599</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <footer id="about-us">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="brand" style="margin-bottom: 15px;">
+                    <span class="brand-title" style="color:white;">Sweet Treats</span>
+                    <span class="brand-subtitle">BAKERY</span>
+                </div>
+                <p>Artisanal bakes crafted with love, premium ingredients, and years of mastery — delivered fresh to your doorstep across India since 2012.</p>
+                <h4 style="margin-top: 20px; margin-bottom: 10px;">Subscribe for Exclusive Deals</h4>
+                
+                   <span>Email : </span><span style="font-size: 20px;">sweettreats@gmail.com</span>
+                   
+                
+            </div>
+            <div class="footer-col" id="custom-orders">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">All Cakes</a></li>
+                    <li><a href="#products">Pastries & Tarts</a></li>
+                    <li><a href="#custom-orders">Custom Orders</a></li>
+                    <li><a href="#festive-boxes">Festive Boxes</a></li>
+                    <li><a href="#about-us">About Us</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col" id="festive-boxes">
+                <h4>Customer Care</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Delivery Info</a></li>
+                    <li><a href="#">Bulk Orders</a></li>
+                   
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Visit Us</h4>
+                <p>📍 BML Munjal University, Sweet Treats bakery, near gate away building</p>
+                <p>📞 <a href="tel:+916667778889" style="color: inherit; text-decoration: none;">+91 6667778889</a><br>
+                   <a href="tel:+919998887776" style="color: inherit; text-decoration: none;">+91 9998887776</a></p>
+                <p style="font-size: 11px; margin-top: 15px;">Accepted Payments:<br>
+                <span class="pay-tag">UPI</span> 
+                <span class="pay-tag">Visa</span> 
+                <span class="pay-tag">MC</span> 
+                <span class="pay-tag">RuPay</span> 
+                <span class="pay-tag">EMI</span></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Sweet Treats Bakery Pvt. Ltd. All rights reserved.</p>
+            <div class="footer-legal-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+   
+</body>
+</html>
