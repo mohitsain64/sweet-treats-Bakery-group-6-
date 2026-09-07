@@ -122,7 +122,7 @@ body {
 
 .search-box:focus-within {
     border-color: #8C6D53;
-    box-shadow: 0 0 0 3px rgba(140, 109, 83, 0.1);
+    box-shadow: 0 0 0 3px rgba(140, 109, 83, 0.25);
 }
 
 .search-box input {
