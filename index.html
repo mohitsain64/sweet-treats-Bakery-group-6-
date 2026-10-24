@@ -71,30 +71,228 @@
             </div>
         </div>
     </section>
-<!--Category Buttons Created by Deepika-->
+
+   
     <div class="categories-bar">
-        <button class="category-pill active">All Cakes</button>
-        <button class="category-pill">Chocolate</button>
-        <button class="category-pill">Fruit tarts</button>
-        <button class="category-pill">Eggless Specials</button>
-        <button class="category-pill">Pastries</button>
-        <button class="category-pill">Cupcakes</button>
-        <button class="category-pill">Cheesecakes</button>
+        <button class="category-pill active" data-category="special">Special Cakes</button>
+        <button class="category-pill" data-category="chocolate">Chocolate</button>
+        <button class="category-pill" data-category="tarts">Fruit Tarts</button>
+        <button class="category-pill" data-category="eggless">Eggless Specials</button>
+        <button class="category-pill" data-category="pastries">Pastries</button>
+        <button class="category-pill" data-category="cupcakes">Cupcakes</button>
+        <button class="category-pill" data-category="cheesecakes">Cheesecakes</button>
     </div>
 
-    <div class="section-container" id="products">
+     <div class="section-container" id="products">
         <div class="section-header">
             <h2>Our Signature Delights</h2>
             <p>Handpicked favorites loved by our community</p>
         </div>
     </div>
-<!-- Product Cards section - Umang -->
+
     <div class="products-grid">
-        <div class="product-card">
+        <div class="product-card" data-category="eggless special">
+            <div class="product-img-wrapper">
+                <span class="card-tag">Eggless</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=500&q=80"
+                    alt="Red Velvet Dream Cake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn">0.5 kg</button>
+                    <button class="weight-btn active">1 kg</button>
+                    <button class="weight-btn">1.5 kg</button>
+                </div>
+                <div class="product-title">Red Velvet Dream Cake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.9</strong> (384)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹1,099</span>
+                    <span class="old-price">₹1,399</span>
+                    <span class="discount">21% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="cheesecakes special">
             <div class="product-img-wrapper">
                 <span class="card-tag">Bestseller</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80" alt="Dark Chocolate Drip Cake">
+                <img src="https://img.taste.com.au/O8JC4F3Q/taste/2016/11/new-york-cheesecake-40742-1.jpeg"
+                    alt="Classic New York Cheesecake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">500g</button>
+                    <button class="weight-btn">1 kg</button>
+                </div>
+                <div class="product-title">Classic New York Cheesecake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.8</strong> (229)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹999</span>
+                    <span class="old-price">₹1,249</span>
+                    <span class="discount">20% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="pastries special">
+            <div class="product-img-wrapper">
+                <span class="card-tag" style="background:var(--accent-green); color:#0284c7;">Pastry</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkEA8mTOetvn7sYMTI682VG0tGq4nbeNV4Y90mu7Z9-TCIfP24R3iFF_8&s=10"
+                    alt="Tiramisu Slice Pastry">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">1 Piece</button>
+                    <button class="weight-btn">Box of 2</button>
+                </div>
+                <div class="product-title">Tiramisu Slice Pastry</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.9</strong> (192)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹249</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="cupcakes special">
+            <div class="product-img-wrapper">
+                <span class="card-tag">Cupcakes</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&w=500&q=80"
+                    alt="Assorted Velvet Cupcakes">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn">Box of 4</button>
+                    <button class="weight-btn active">Box of 6</button>
+                </div>
+                <div class="product-title">Assorted Velvet Cupcakes</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.7</strong> (143)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹499</span>
+                    <span class="old-price">₹649</span>
+                    <span class="discount">23% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="eggless special">
+            <div class="product-img-wrapper">
+                <span class="card-tag">Eggless</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=80"
+                    alt="Butterscotch Caramel Cake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn">0.5 kg</button>
+                    <button class="weight-btn active">1 kg</button>
+                </div>
+                <div class="product-title">Butterscotch Caramel Cake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.8</strong> (210)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹899</span>
+                    <span class="old-price">₹1,099</span>
+                    <span class="discount">18% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="cheesecakes special">
+            <div class="product-img-wrapper">
+                <span class="card-tag" style="background:var(--accent-pink); color:#991b1b;">Special</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://addictedtodates.com/wp-content/uploads/2022/04/vegan-blueberry-cheesecake-4.jpg"
+                    alt="Blueberry Glaze Cheesecake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">6 Inch</button>
+                    <button class="weight-btn">8 Inch</button>
+                </div>
+                <div class="product-title">Blueberry Glaze Cheesecake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.9</strong> (315)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹1,149</span>
+                    <span class="old-price">₹1,399</span>
+                    <span class="discount">18% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="chocolate special">
+            <div class="product-img-wrapper">
+                <span class="card-tag">Bestseller</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?auto=format&fit=crop&w=500&q=80"
+                    alt="Pineapple Gateau Cake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn">0.5 kg</button>
+                    <button class="weight-btn active">1 kg</button>
+                </div>
+                <div class="product-title">Pineapple Gateau Cake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.7</strong> (188)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹799</span>
+                    <span class="old-price">₹999</span>
+                    <span class="discount">20% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="pastries special">
+            <div class="product-img-wrapper">
+                <span class="card-tag" style="background:#e0e7ff; color:#3730a3;">Limited</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80"
+                    alt="French Almond Croissant">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">1 Pc</button>
+                    <button class="weight-btn">Box of 3</button>
+                </div>
+                <div class="product-title">French Almond Croissant</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.9</strong> (94)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹229</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+        <div class="product-card" data-category="chocolate special">
+            <div class="product-img-wrapper">
+                <span class="card-tag">Bestseller</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80"
+                    alt="Dark Chocolate Drip Cake">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -115,10 +313,11 @@
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="product-card" data-category="tarts special">
             <div class="product-img-wrapper">
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=500&q=80" alt="Strawberry Chiffon Cake">
+                <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=500&q=80"
+                    alt="Strawberry Chiffon Cake">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -136,11 +335,12 @@
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="product-card" data-category="chocolate special">
             <div class="product-img-wrapper">
                 <span class="card-tag">Bestseller</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=500&q=80" alt="Belgian Chocolate Truffle">
+                <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=500&q=80"
+                    alt="Belgian Chocolate Truffle">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -161,11 +361,12 @@
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="product-card" data-category="tarts special">
             <div class="product-img-wrapper">
                 <span class="card-tag" style="background:whitesmoke; color:blue;">Seasonal</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80" alt="Mixed Berry Tart">
+                <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80"
+                    alt="Mixed Berry Tart">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -182,8 +383,421 @@
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
         </div>
+                <!-- EGGLESS -->
+        <div class="product-card" data-category="eggless">
+            <div class="product-img-wrapper">
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://incredibleart.co.in/wp-content/uploads/2026/04/eggless-chocolate-cake-recipe.png" alt="Eggless Chocolate Fudge Cake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn">0.5 kg</button>
+                    <button class="weight-btn active">1 kg</button>
+                </div>
+                <div class="product-title">Eggless Chocolate Fudge Cake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.7</strong> (162)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹949</span>
+                    <span class="old-price">₹1,199</span>
+                    <span class="discount">20% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="eggless">
+            <div class="product-img-wrapper">
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZG89rzvJdM_m4dtthlmWO9cPuf7KIR-R4-AR0sVCh4bJxzfZ8K58U0LuZ&s=10" alt="Eggless Vanilla Bean Cake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">0.5 kg</button>
+                    <button class="weight-btn">1 kg</button>
+                </div>
+                <div class="product-title">Eggless Vanilla Bean Cake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.6</strong> (98)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹749</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="eggless">
+            <div class="product-img-wrapper">
+                <span class="card-tag">Eggless</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5E41BFgcHUjYW14256zxtb5tP2ppBye7mluK5O0i3CuMuS5yten84OfXM&s=10" alt="Eggless Black Forest Cake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn">0.5 kg</button>
+                    <button class="weight-btn active">1 kg</button>
+                    <button class="weight-btn">1.5 kg</button>
+                </div>
+                <div class="product-title">Eggless Black Forest Cake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.8</strong> (267)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹999</span>
+                    <span class="old-price">₹1,249</span>
+                    <span class="discount">20% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- CHEESECAKES -->
+        <div class="product-card" data-category="cheesecakes">
+            <div class="product-img-wrapper">
+                <span class="card-tag">Bestseller</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLR_6VRFQWi6FKY0dFdaWicCMn-yUEyGoDi4Y2OhnXs9p_9bAZOIvTVbK-&s=10" alt="Oreo Chocolate Cheesecake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">500g</button>
+                    <button class="weight-btn">1 kg</button>
+                </div>
+                <div class="product-title">Oreo Chocolate Cheesecake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.9</strong> (341)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹1,049</span>
+                    <span class="old-price">₹1,299</span>
+                    <span class="discount">19% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="cheesecakes">
+            <div class="product-img-wrapper">
+                <span class="card-tag" style="background:var(--accent-pink); color:#991b1b;">Seasonal</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://sinfullyspicy.com/wp-content/uploads/2023/07/1200-by-1200-images.jpg" alt="Mango Cheesecake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">500g</button>
+                    <button class="weight-btn">1 kg</button>
+                </div>
+                <div class="product-title">Mango Cheesecake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.7</strong> (176)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹1,099</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="cheesecakes">
+            <div class="product-img-wrapper">
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMcvPInD8e3jO8ZN58uSOAa4yVM3W14DGPbG1eisLXvENu25165ub5ReY&s=10" alt="Salted Caramel Cheesecake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">500g</button>
+                    <button class="weight-btn">1 kg</button>
+                </div>
+                <div class="product-title">Salted Caramel Cheesecake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.8</strong> (223)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹1,149</span>
+                    <span class="old-price">₹1,399</span>
+                    <span class="discount">18% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- PASTRIES -->
+        <div class="product-card" data-category="pastries">
+            <div class="product-img-wrapper">
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="" alt="Chocolate Éclair">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">1 Piece</button>
+                    <button class="weight-btn">Box of 2</button>
+                </div>
+                <div class="product-title">Chocolate Éclair</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.6</strong> (87)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹199</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="pastries">
+            <div class="product-img-wrapper">
+                <span class="card-tag" style="background:var(--accent-green); color:#0284c7;">Pastry</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="" alt="Fruit Danish Pastry">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">1 Piece</button>
+                    <button class="weight-btn">Box of 2</button>
+                </div>
+                <div class="product-title">Fruit Danish Pastry</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.5</strong> (64)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹179</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="pastries">
+            <div class="product-img-wrapper">
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="" alt="Hazelnut Praline Pastry">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">1 Piece</button>
+                    <button class="weight-btn">Box of 2</button>
+                </div>
+                <div class="product-title">Hazelnut Praline Pastry</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.8</strong> (129)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹269</span>
+                    <span class="old-price">₹329</span>
+                    <span class="discount">18% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- CUPCAKES -->
+        <div class="product-card" data-category="cupcakes">
+            <div class="product-img-wrapper">
+                <span class="card-tag">Bestseller</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="" alt="Chocolate Fudge Cupcakes">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn">Box of 4</button>
+                    <button class="weight-btn active">Box of 6</button>
+                </div>
+                <div class="product-title">Chocolate Fudge Cupcakes</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.8</strong> (201)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹549</span>
+                    <span class="old-price">₹699</span>
+                    <span class="discount">21% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="cupcakes">
+            <div class="product-img-wrapper">
+                <span class="card-tag">Eggless</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="" alt="Red Velvet Cupcakes">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">Box of 4</button>
+                    <button class="weight-btn">Box of 6</button>
+                </div>
+                <div class="product-title">Red Velvet Cupcakes</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.7</strong> (154)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹399</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="cupcakes">
+            <div class="product-img-wrapper">
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="" alt="Lemon Zest Cupcakes">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">Box of 4</button>
+                    <button class="weight-btn">Box of 6</button>
+                </div>
+                <div class="product-title">Lemon Zest Cupcakes</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.6</strong> (77)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹379</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="cupcakes">
+            <div class="product-img-wrapper">
+                <span class="card-tag" style="background:#e0e7ff; color:#3730a3;">Limited</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="" alt="Funfetti Birthday Cupcakes">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn">Box of 4</button>
+                    <button class="weight-btn active">Box of 6</button>
+                </div>
+                <div class="product-title">Funfetti Birthday Cupcakes</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.9</strong> (188)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹549</span>
+                    <span class="old-price">₹649</span>
+                    <span class="discount">15% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- CHOCOLATE -->
+        <div class="product-card" data-category="chocolate">
+            <div class="product-img-wrapper">
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="" alt="Chocolate Hazelnut Cake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn">0.5 kg</button>
+                    <button class="weight-btn active">1 kg</button>
+                </div>
+                <div class="product-title">Chocolate Hazelnut Cake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.8</strong> (239)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹1,049</span>
+                    <span class="old-price">₹1,299</span>
+                    <span class="discount">19% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="chocolate">
+            <div class="product-img-wrapper">
+                <span class="card-tag">Bestseller</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="" alt="Double Chocolate Brownie Cake">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn">0.5 kg</button>
+                    <button class="weight-btn active">1 kg</button>
+                </div>
+                <div class="product-title">Double Chocolate Brownie Cake</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.9</strong> (302)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹1,199</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- TARTS -->
+        <div class="product-card" data-category="tarts">
+            <div class="product-img-wrapper">
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="" alt="Lemon Meringue Tart">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">6 Inch</button>
+                    <button class="weight-btn">8 Inch</button>
+                </div>
+                <div class="product-title">Lemon Meringue Tart</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.7</strong> (112)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹649</span>
+                    <span class="old-price">₹799</span>
+                    <span class="discount">19% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="tarts">
+            <div class="product-img-wrapper">
+                <span class="card-tag" style="background:whitesmoke; color:blue;">Seasonal</span>
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="" alt="Apple Cinnamon Tart">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">6 Inch</button>
+                    <button class="weight-btn">8 Inch</button>
+                </div>
+                <div class="product-title">Apple Cinnamon Tart</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.6</strong> (85)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹579</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="tarts">
+            <div class="product-img-wrapper">
+                <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
+                <img src="" alt="Chocolate Ganache Tart">
+            </div>
+            <div class="product-details">
+                <div class="weight-selector">
+                    <button class="weight-btn active">6 Inch</button>
+                    <button class="weight-btn">8 Inch</button>
+                </div>
+                <div class="product-title">Chocolate Ganache Tart</div>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span> <strong>4.8</strong> (147)
+                </div>
+                <div class="price-row">
+                    <span class="current-price">₹699</span>
+                    <span class="old-price">₹849</span>
+                    <span class="discount">18% off</span>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
     </div>
-<!-- footer created by uma bist -->
+
     <footer id="about-us">
         <div class="footer-grid">
             <div class="footer-col">
@@ -191,12 +805,13 @@
                     <span class="brand-title" style="color:white;">Sweet Treats</span>
                     <span class="brand-subtitle">BAKERY</span>
                 </div>
-                <p>Artisanal bakes crafted with love, premium ingredients, and years of mastery — delivered fresh to your doorstep across India since 2012.</p>
+                <p>Artisanal bakes crafted with love, premium ingredients, and years of mastery — delivered fresh to
+                    your doorstep across India since 2012.</p>
                 <h4 style="margin-top: 20px; margin-bottom: 10px;">Subscribe for Exclusive Deals</h4>
-                
-                   <span>Email : </span><span style="font-size: 20px;">sweettreats@gmail.com</span>
-                   
-                
+
+                <span>Email : </span><span style="font-size: 20px;">sweettreats@gmail.com</span>
+
+
             </div>
             <div class="footer-col" id="custom-orders">
                 <h4>Quick Links</h4>
@@ -218,20 +833,22 @@
                     <li><a href="#">FAQ</a></li>
                     <li><a href="#">Delivery Info</a></li>
                     <li><a href="#">Bulk Orders</a></li>
-                   
+
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Visit Us</h4>
                 <p>📍 BML Munjal University, Sweet Treats bakery, near gate away building</p>
                 <p>📞 <a href="tel:+916667778889" style="color: inherit; text-decoration: none;">+91 6667778889</a><br>
-                   <a href="tel:+919998887776" style="color: inherit; text-decoration: none;">+91 9998887776</a></p>
+                    <a href="tel:+919998887776" style="color: inherit; text-decoration: none;">+91 9998887776</a>
+                </p>
                 <p style="font-size: 11px; margin-top: 15px;">Accepted Payments:<br>
-                <span class="pay-tag">UPI</span> 
-                <span class="pay-tag">Visa</span> 
-                <span class="pay-tag">MC</span> 
-                <span class="pay-tag">RuPay</span> 
-                <span class="pay-tag">EMI</span></p>
+                    <span class="pay-tag">UPI</span>
+                    <span class="pay-tag">Visa</span>
+                    <span class="pay-tag">MC</span>
+                    <span class="pay-tag">RuPay</span>
+                    <span class="pay-tag">EMI</span>
+                </p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -243,6 +860,29 @@
             </div>
         </div>
     </footer>
+    <script>
+        const pills = document.querySelectorAll('.category-pill');
+        const cards = document.querySelectorAll('.product-card');
+
+        pills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                pills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+
+                const selectedCategory = pill.getAttribute('data-category');
+
+                cards.forEach(card => {
+                    const cardCategories = card.getAttribute('data-category').split(' ');
+
+                    if (cardCategories.includes(selectedCategory)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 
    
 </body>
