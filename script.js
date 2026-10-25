@@ -32,7 +32,7 @@ addButtons.forEach(function (btn) {
 
         const name = card.querySelector(".product-title").textContent;
         const priceText = card.querySelector(".current-price").textContent;
-       const price = Number(priceText.replace("₹", "").replace(/,/g, ""));
+        const price = Number(priceText.replace("₹", "").replace(/,/g, ""));
         const image = card.querySelector("img").src;
         const weight = card.querySelector(".weight-btn.active").textContent;
 
@@ -133,4 +133,126 @@ weightButtons.forEach(function (btn) {
         }
     });
 });
+// ---- Wishlist ka data localStorage se lena ----
+function getWishlist() {
+    return JSON.parse(localStorage.getItem("wishlist")) || [];
+}
+
+// ---- Wishlist save karna ----
+function saveWishlist(list) {
+    localStorage.setItem("wishlist", JSON.stringify(list));
+    updateWishCount();
+}
+
+// ---- Navbar me wishlist ki count dikhana ----
+function updateWishCount() {
+    const countBox = document.getElementById("wishCount");
+    if (countBox) {
+        countBox.textContent = getWishlist().length;
+    }
+}
+
+// ---- Page khulte hi jo cakes wishlist me hain unka heart red karo ----
+function markHearts() {
+    const list = getWishlist();
+
+    document.querySelectorAll(".product-card").forEach(function (card) {
+        const heart = card.querySelector(".fav-btn");
+        const name = card.querySelector(".product-title").textContent;
+
+        let inWishlist = false;
+        list.forEach(function (item) {
+            if (item.name === name) {
+                inWishlist = true;
+            }
+        });
+
+        if (inWishlist) {
+            heart.classList.add("active");
+            heart.textContent = "♥";
+        }
+    });
+}
+
+// ---- Heart button click ----
+document.querySelectorAll(".fav-btn").forEach(function (heart) {
+    heart.addEventListener("click", function () {
+        const card = heart.closest(".product-card");
+
+        const name = card.querySelector(".product-title").textContent;
+        const priceText = card.querySelector(".current-price").textContent;
+        const price = Number(priceText.replace("₹", "").replace(/,/g, ""));
+        const image = card.querySelector("img").src;
+        const weight = card.querySelector(".weight-btn.active").textContent;
+
+        let list = getWishlist();
+
+        if (heart.classList.contains("active")) {
+            // pehle se wishlist me hai to hata do
+            list = list.filter(function (item) {
+                return item.name !== name;
+            });
+            heart.classList.remove("active");
+            heart.textContent = "♡";
+        } else {
+            // nahi hai to add karo
+            list.push({ name: name, price: price, image: image, weight: weight });
+            heart.classList.add("active");
+            heart.textContent = "♥";
+        }
+
+        saveWishlist(list);
+    });
+});
+
+markHearts();
+updateWishCount();
+// ---- Search box ----
+const searchInput = document.getElementById("searchInput");
+const noResults = document.getElementById("noResults");
+
+if (searchInput) {
+
+    // Jaise hi user type kare
+    searchInput.addEventListener("input", function () {
+        const text = searchInput.value.toLowerCase().trim();
+
+        // Agar search box khali hai to active category wapas dikhao
+        if (text === "") {
+            const activePill = document.querySelector(".category-pill.active");
+            filterCards(activePill.getAttribute("data-category"));
+            noResults.style.display = "none";
+            return;
+        }
+
+        // Warna saare cards me naam dhoondo
+        let matchCount = 0;
+
+        document.querySelectorAll(".product-card").forEach(function (card) {
+            const name = card.querySelector(".product-title").textContent.toLowerCase();
+
+            if (name.includes(text)) {
+                card.style.display = "flex";
+                matchCount = matchCount + 1;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        // Koi card nahi mila to message dikhao
+        if (matchCount === 0) {
+            noResults.style.display = "block";
+        } else {
+            noResults.style.display = "none";
+        }
+    });
+
+    // Category pill dabane par search box saaf kar do
+    document.querySelectorAll(".category-pill").forEach(function (pill) {
+        pill.addEventListener("click", function () {
+            searchInput.value = "";
+            noResults.style.display = "none";
+        });
+    });
+}
 updateCartCount();

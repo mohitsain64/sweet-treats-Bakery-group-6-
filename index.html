@@ -31,7 +31,8 @@
                 <span class="search-icon">🔍</span>
                 <input type="text" id="searchInput" placeholder="Search cakes...">
             </div>
-            <button class="wishlist-icon" aria-label="Wishlist">♡</button>
+
+            <a href="wishlist.html" class="wishlist-icon">♡ <span id="wishCount">0</span></a>
             <a href="cart.html" class="cart-btn">
                 🛒 Cart <span id="cartCount">0</span>
             </a>
@@ -819,6 +820,7 @@
             </div>
         </div>
     </div>
+    <p id="noResults">No result found</p>
 
     <footer id="about-us">
         <div class="footer-grid">
@@ -886,24 +888,31 @@
         const pills = document.querySelectorAll('.category-pill');
         const cards = document.querySelectorAll('.product-card');
 
+        // Category ke hisaab se cards dikhane wala function
+        function filterCards(selectedCategory) {
+            cards.forEach(card => {
+                const cardCategories = card.getAttribute('data-category').split(' ');
+
+                if (cardCategories.includes(selectedCategory)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Pill click hone par
         pills.forEach(pill => {
             pill.addEventListener('click', () => {
                 pills.forEach(p => p.classList.remove('active'));
                 pill.classList.add('active');
 
-                const selectedCategory = pill.getAttribute('data-category');
-
-                cards.forEach(card => {
-                    const cardCategories = card.getAttribute('data-category').split(' ');
-
-                    if (cardCategories.includes(selectedCategory)) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+                filterCards(pill.getAttribute('data-category'));
             });
         });
+
+        // Page khulte hi "special" wale cards hi dikhao
+        filterCards('special');
     </script>
     <script src="script.js"></script>
 

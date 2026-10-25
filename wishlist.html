@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist - Sweet Treats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="brand">
+            <span class="brand-title">Sweet Treats</span>
+            <span class="brand-subtitle">Bakery</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#products">Cakes</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="wishlist.html" class="wishlist-icon">♡ <span id="wishCount">0</span></a>
+            <a href="cart.html" class="cart-btn">🛒 Cart <span id="cartCount">0</span></a>
+        </div>
+    </nav>
+
+    <div class="cart-container">
+        <h2>Your Wishlist</h2>
+        <br>
+        <div id="wishItems"></div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const wishBox = document.getElementById("wishItems");
+
+        // Wishlist screen pe dikhana
+        function showWishlist() {
+            const list = getWishlist();
+            wishBox.innerHTML = "";
+
+            if (list.length === 0) {
+                wishBox.innerHTML = "<p>Your wishlist is empty 💔</p>";
+                return;
+            }
+
+            list.forEach(function (item, index) {
+                wishBox.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-info">
+                            <h4>${item.name}</h4>
+                            <p>Weight: ${item.weight}</p>
+                            <p>Price: ₹${item.price}</p>
+                        </div>
+                        <button class="move-btn" onclick="moveToCart(${index})">Move to Cart</button>
+                        <button class="remove-btn" onclick="removeWish(${index})">Remove</button>
+                    </div>
+                `;
+            });
+        }
+
+        // Wishlist se hatana
+        function removeWish(index) {
+            const list = getWishlist();
+            list.splice(index, 1);
+            saveWishlist(list);
+            showWishlist();
+        }
+
+        // Wishlist se cart me bhejna
+        function moveToCart(index) {
+            const list = getWishlist();
+            const item = list[index];
+
+            const cart = getCart();
+
+            let found = false;
+            cart.forEach(function (c) {
+                if (c.name === item.name && c.weight === item.weight) {
+                    c.qty = c.qty + 1;
+                    found = true;
+                }
+            });
+
+            if (found === false) {
+                cart.push({ name: item.name, price: item.price, image: item.image, weight: item.weight, qty: 1 });
+            }
+
+            saveCart(cart);
+
+            // cart me chala gaya, ab wishlist se hata do
+            list.splice(index, 1);
+            saveWishlist(list);
+            showWishlist();
+        }
+
+        showWishlist();
+    </script>
+</body>
+</html>
