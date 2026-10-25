@@ -14,30 +14,29 @@
 <body>
 
     <nav class="navbar">
-        <a href="#home" class="brand">
+        <a href="index.html" class="brand">
             <span class="brand-title">Sweet Treats</span>
             <span class="brand-subtitle">Bakery</span>
         </a>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#products">Cakes</a></li>
-            <li><a href="#products">Pastries</a></li>
-            <li><a href="#custom-orders">Custom Orders</a></li>
-            <li><a href="#festive-boxes">Festive Boxes</a></li>
-            <li><a href="#about-us">About Us</a></li>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#products">Cakes</a></li>
+            <li><a href="index.html?category=pastries#products">Pastries</a></li>
+            <li><a href="index.html#about-us">About Us</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
+
         <div class="nav-actions">
             <div class="search-box">
                 <span class="search-icon">🔍</span>
                 <input type="text" id="searchInput" placeholder="Search cakes...">
             </div>
-
             <a href="wishlist.html" class="wishlist-icon">♡ <span id="wishCount">0</span></a>
-            <a href="cart.html" class="cart-btn">
-                🛒 Cart <span id="cartCount">0</span>
-            </a>
+            <a href="cart.html" class="cart-btn">🛒 Cart <span id="cartCount">0</span></a>
         </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
     </nav>
 
     <section class="hero" id="home">
@@ -69,12 +68,26 @@
             </div>
         </div>
         <div class="hero-image-container">
-            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80"
+
+            <img class="slide active" data-name="Dark Chocolate Drip"
+                src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80"
                 alt="Dark Chocolate Drip Cake">
+            <img class="slide" data-name="Red Velvet Dream"
+                src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=800&q=80"
+                alt="Red Velvet Dream Cake">
+            <img class="slide" data-name="Belgian Chocolate Truffle"
+                src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80"
+                alt="Belgian Chocolate Truffle">
+            <img class="slide" data-name="Mixed Berry Tart"
+                src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80"
+                alt="Mixed Berry Tart">
+
             <div class="hero-badge-tag">
                 <span>Today's Special</span>
-                <strong>Dark Chocolate Drip</strong>
+                <strong id="slideName">Dark Chocolate Drip</strong>
             </div>
+
+            <div class="slide-dots" id="slideDots"></div>
         </div>
     </section>
 
@@ -914,6 +927,16 @@
 
         // Page khulte hi "special" wale cards hi dikhao
         filterCards('special');
+        // URL me ?category=pastries ho to wahi category kholo
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlCategory = urlParams.get("category");
+
+        if (urlCategory) {
+            const pill = document.querySelector('.category-pill[data-category="' + urlCategory + '"]');
+            if (pill) {
+                pill.click();
+            }
+        }
     </script>
     <script src="script.js"></script>
 

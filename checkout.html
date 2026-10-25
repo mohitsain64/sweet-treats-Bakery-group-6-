@@ -18,14 +18,21 @@
             <span class="brand-title">Sweet Treats</span>
             <span class="brand-subtitle">Bakery</span>
         </a>
-        <ul class="nav-links">
+
+        <ul class="nav-links" id="navLinks">
             <li><a href="index.html">Home</a></li>
             <li><a href="index.html#products">Cakes</a></li>
+            <li><a href="index.html?category=pastries#products">Pastries</a></li>
+            <li><a href="index.html#about-us">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
+
         <div class="nav-actions">
             <a href="wishlist.html" class="wishlist-icon">♡ <span id="wishCount">0</span></a>
             <a href="cart.html" class="cart-btn">🛒 Cart <span id="cartCount">0</span></a>
         </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
     </nav>
 
     <div class="checkout-layout" id="checkoutPage">
@@ -135,6 +142,13 @@
         });
 
         document.getElementById("summaryTotal").textContent = "₹" + total;
+        // ---------- Logged in user ki details form me pehle se bharna ----------
+        const loggedUser = getUser();
+        if (loggedUser) {
+            document.getElementById("fullName").value = loggedUser.name;
+            document.getElementById("phone").value = loggedUser.phone;
+            document.getElementById("email").value = loggedUser.email;
+        }
 
         // ---------- 3. Aaj se pehle ki date block karna ----------
         const dateInput = document.getElementById("deliveryDate");
@@ -256,6 +270,7 @@
 
                 const order = {
                     orderId: "ORD" + Date.now(),
+                    userEmail: loggedUser ? loggedUser.email : "",
                     name: document.getElementById("fullName").value.trim(),
                     phone: document.getElementById("phone").value.trim(),
                     email: document.getElementById("email").value.trim(),
@@ -297,7 +312,7 @@
                         }
                     })
                     .catch(function () {
-                        alert("Server se connect nahi ho paya. Terminal me 'node server.js' chalaya?");
+                        alert("Unable to connect to the server. Please make sure the server is running.");
                     });
             });
         }

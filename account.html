@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Sweet Treats</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="brand">
+            <span class="brand-title">Sweet Treats</span>
+            <span class="brand-subtitle">Bakery</span>
+        </a>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#products">Cakes</a></li>
+            <li><a href="index.html?category=pastries#products">Pastries</a></li>
+            <li><a href="index.html#about-us">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <a href="wishlist.html" class="wishlist-icon">♡ <span id="wishCount">0</span></a>
+            <a href="cart.html" class="cart-btn">🛒 Cart <span id="cartCount">0</span></a>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+    </nav>
+
+    <div class="account-layout">
+
+        <!-- LEFT: Side menu -->
+        <div class="box side-menu">
+            <div class="profile-mini">
+                <div class="avatar" id="avatar">U</div>
+                <strong id="sideName"></strong>
+                <small id="sideEmail"></small>
+            </div>
+            <button class="side-link active" data-tab="profileTab">👤 My Profile</button>
+            <button class="side-link" data-tab="ordersTab">📦 My Orders</button>
+            <button class="side-link" data-tab="wishlistTab">♡ My Wishlist</button>
+            <button class="side-link" data-tab="cartTab">🛒 My Cart</button>
+            <button class="side-link logout" onclick="logout()">🚪 Logout</button>
+        </div>
+
+        <!-- RIGHT: Content -->
+        <div>
+            <div class="box tab-content" id="profileTab">
+                <h3>My Profile</h3>
+                <div class="profile-row"><span>Full Name</span><strong id="pName"></strong></div>
+                <div class="profile-row"><span>Email</span><strong id="pEmail"></strong></div>
+                <div class="profile-row"><span>Phone</span><strong id="pPhone"></strong></div>
+            </div>
+
+            <div class="box tab-content" id="ordersTab" style="display:none;">
+                <h3>My Orders</h3>
+                <div id="ordersList">Loading...</div>
+            </div>
+            <div class="box tab-content" id="wishlistTab" style="display:none;">
+                <h3>My Wishlist</h3>
+                <br>
+                <div id="wishItems"></div>
+            </div>
+
+            <div class="box tab-content" id="cartTab" style="display:none;">
+                <h3>My Cart</h3>
+                <br>
+                <div id="cartItems"></div>
+                <div class="cart-total" id="cartTotal"></div>
+                <div style="text-align:right;">
+                    <a href="checkout.html" class="checkout-btn" id="checkoutBtn"
+                        onclick="localStorage.removeItem('buyNow')">Proceed to Checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const user = getUser();
+
+        // ---------- Wishlist dikhana ----------
+        function showWishlist() {
+            const wishBox = document.getElementById("wishItems");
+            const list = getWishlist();
+            wishBox.innerHTML = "";
+
+            if (list.length === 0) {
+                wishBox.innerHTML = "<p>Your wishlist is empty 💔</p>";
+                return;
+            }
+
+            list.forEach(function (item, index) {
+                wishBox.innerHTML += `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-info">
+                        <h4>${item.name}</h4>
+                        <p>Weight: ${item.weight}</p>
+                        <p>Price: ₹${item.price}</p>
+                    </div>
+                    <button class="move-btn" onclick="moveToCart(${index})">Move to Cart</button>
+                    <button class="remove-btn" onclick="removeWish(${index})">Remove</button>
+                </div>
+            `;
+            });
+        }
+
+        function removeWish(index) {
+            const list = getWishlist();
+            list.splice(index, 1);
+            saveWishlist(list);
+            showWishlist();
+        }
+
+        function moveToCart(index) {
+            const list = getWishlist();
+            const item = list[index];
+            const cart = getCart();
+
+            let found = false;
+            cart.forEach(function (c) {
+                if (c.name === item.name && c.weight === item.weight) {
+                    c.qty = c.qty + 1;
+                    found = true;
+                }
+            });
+
+            if (found === false) {
+                cart.push({ name: item.name, price: item.price, image: item.image, weight: item.weight, qty: 1 });
+            }
+
+            saveCart(cart);
+            list.splice(index, 1);
+            saveWishlist(list);
+            showWishlist();
+        }
+
+        // ---------- Cart dikhana ----------
+        function showCart() {
+            const cartItemsBox = document.getElementById("cartItems");
+            const cartTotalBox = document.getElementById("cartTotal");
+            const checkoutBtn = document.getElementById("checkoutBtn");
+            const cart = getCart();
+            let grandTotal = 0;
+
+            cartItemsBox.innerHTML = "";
+
+            if (cart.length === 0) {
+                cartItemsBox.innerHTML = "<p>Your cart is empty 😢</p>";
+                cartTotalBox.textContent = "";
+                checkoutBtn.style.display = "none";
+                return;
+            }
+
+            cart.forEach(function (item, index) {
+                const itemTotal = item.price * item.qty;
+                grandTotal = grandTotal + itemTotal;
+
+                cartItemsBox.innerHTML += `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-info">
+                        <h4>${item.name}</h4>
+                        <p>Weight: ${item.weight}</p>
+                        <p>Price: ₹${item.price}</p>
+                    </div>
+                    <div class="qty-box">
+                        <button onclick="changeQty(${index}, -1)">-</button>
+                        <span>${item.qty}</span>
+                        <button onclick="changeQty(${index}, 1)">+</button>
+                    </div>
+                    <strong>₹${itemTotal}</strong>
+                    <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                </div>
+            `;
+            });
+
+            cartTotalBox.textContent = "Total: ₹" + grandTotal;
+            checkoutBtn.style.display = "inline-block";
+        }
+
+        function changeQty(index, change) {
+            const cart = getCart();
+            cart[index].qty = cart[index].qty + change;
+            if (cart[index].qty < 1) {
+                cart[index].qty = 1;
+            }
+            saveCart(cart);
+            showCart();
+        }
+
+        function removeItem(index) {
+            const cart = getCart();
+            cart.splice(index, 1);
+            saveCart(cart);
+            showCart();
+        }
+
+        // ---------- Profile, Tabs, Orders ----------
+        if (user) {
+            document.getElementById("avatar").textContent = user.name.charAt(0).toUpperCase();
+            document.getElementById("sideName").textContent = user.name;
+            document.getElementById("sideEmail").textContent = user.email;
+            document.getElementById("pName").textContent = user.name;
+            document.getElementById("pEmail").textContent = user.email;
+            document.getElementById("pPhone").textContent = user.phone;
+
+            // Tabs
+            const tabButtons = document.querySelectorAll(".side-link[data-tab]");
+
+            tabButtons.forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    document.querySelectorAll(".tab-content").forEach(function (tab) {
+                        tab.style.display = "none";
+                    });
+                    tabButtons.forEach(function (b) {
+                        b.classList.remove("active");
+                    });
+
+                    document.getElementById(btn.dataset.tab).style.display = "block";
+                    btn.classList.add("active");
+
+                    // Cart / Wishlist tab khulte hi unka data dikhao
+                    if (btn.dataset.tab === "cartTab") {
+                        showCart();
+                    }
+                    if (btn.dataset.tab === "wishlistTab") {
+                        showWishlist();
+                    }
+                });
+            });
+
+            // Orders
+            const ordersList = document.getElementById("ordersList");
+
+            fetch("/api/my-orders?email=" + encodeURIComponent(user.email))
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    if (data.orders.length === 0) {
+                        ordersList.innerHTML = "<p>You have not placed any orders yet 🍰</p>";
+                        return;
+                    }
+
+                    ordersList.innerHTML = "";
+
+                    data.orders.reverse().forEach(function (order) {
+                        let itemsHtml = "";
+                        order.items.forEach(function (item) {
+                            itemsHtml += "<p>" + item.name + " (" + item.weight + ") x " + item.qty + "</p>";
+                        });
+
+                        ordersList.innerHTML += `
+                    <div class="order-card">
+                        <div class="order-top">
+                            <span>${order.orderId}</span>
+                            <span class="order-status">Placed</span>
+                        </div>
+                        ${itemsHtml}
+                        <hr style="margin:10px 0; border:none; border-top:1px solid #efece6;">
+                        <p>Total: <strong>₹${order.total}</strong> | ${order.payment}</p>
+                        <p style="font-size:12px; color:#756B66;">Delivery: ${order.deliveryDate} | Ordered: ${order.orderDate}</p>
+                    </div>
+                `;
+                    });
+                })
+                .catch(function () {
+                    ordersList.innerHTML = "<p>Unable to load orders. Please check that the server is running.</p>";
+                });
+        }
+    </script>
+</body>
+
+</html>

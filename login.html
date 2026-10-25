@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sweet Treats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-box">
+
+            <!-- LEFT: Banner -->
+            <div class="auth-banner">
+                <a href="index.html" class="auth-logo">
+                    <span class="logo-title">Sweet Treats</span>
+                    <span class="logo-sub">BAKERY</span>
+                </a>
+
+                <div>
+                    <h2>Fresh bakes, <span>delivered with love.</span></h2>
+                    <ul class="benefits">
+                        <li><b>🎂</b> 50+ handcrafted flavours</li>
+                        <li><b>⚡</b> Express delivery in 2 hours</li>
+                        <li><b>♡</b> Save your favourites</li>
+                        <li><b>📦</b> Track all your orders</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- RIGHT: Form -->
+            <div class="auth-form-side">
+                <a href="index.html" class="auth-skip">Skip for now →</a>
+
+                <h3>Welcome Back 👋</h3>
+                <p class="auth-sub">Log in to continue to your account.</p>
+
+                <form id="loginForm" class="auth-form" novalidate>
+                    <div class="form-group">
+                        <label for="lEmail">Email Address</label>
+                        <div class="input-wrap">
+                            <span class="icon">✉️</span>
+                            <input type="text" id="lEmail" placeholder="you@example.com">
+                        </div>
+                        <small class="error" id="lEmailError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lPassword">Password</label>
+                        <div class="input-wrap">
+                            <span class="icon">🔒</span>
+                            <input type="password" id="lPassword" class="pass-input" placeholder="Enter your password">
+                            <button type="button" class="eye-btn" onclick="togglePass('lPassword', this)">👁️</button>
+                        </div>
+                        <small class="error" id="lPasswordError"></small>
+                    </div>
+
+                    <button type="submit" class="auth-btn">Login</button>
+                </form>
+
+                <p class="auth-bottom">New to Sweet Treats? <a href="signup.html">Create an account</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---------- Password show / hide ----------
+        function togglePass(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                btn.textContent = "🙈";
+            } else {
+                input.type = "password";
+                btn.textContent = "👁️";
+            }
+        }
+
+        function showError(inputId, errorId, message) {
+            document.getElementById(errorId).textContent = message;
+            document.getElementById(inputId).classList.add("invalid");
+        }
+
+        function clearError(inputId, errorId) {
+            document.getElementById(errorId).textContent = "";
+            document.getElementById(inputId).classList.remove("invalid");
+        }
+
+        // Login ke baad kaha jana hai (URL me ?next=cart.html ho to wahi, warna home)
+        const params = new URLSearchParams(window.location.search);
+        const nextPage = params.get("next") || "index.html";
+
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("lEmail").value.trim().toLowerCase();
+            const password = document.getElementById("lPassword").value;
+            let isValid = true;
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError("lEmail", "lEmailError", "Enter a valid email");
+                isValid = false;
+            } else {
+                clearError("lEmail", "lEmailError");
+            }
+
+            if (password === "") {
+                showError("lPassword", "lPasswordError", "Password is required");
+                isValid = false;
+            } else {
+                clearError("lPassword", "lPasswordError");
+            }
+
+            if (isValid === false) {
+                return;
+            }
+
+            fetch("/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: email, password: password })
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                if (data.success) {
+                    localStorage.setItem("user", JSON.stringify(data.user));
+                    window.location.href = nextPage;
+                } else {
+                    showError("lPassword", "lPasswordError", data.message);
+                }
+            })
+            .catch(function () {
+                alert("Unable to connect to the server. Please make sure the server is running.");
+            });
+        });
+    </script>
+</body>
+</html>

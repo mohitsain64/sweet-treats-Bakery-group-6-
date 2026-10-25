@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Sweet Treats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-box">
+
+            <!-- LEFT: Banner -->
+            <div class="auth-banner">
+                <a href="index.html" class="auth-logo">
+                    <span class="logo-title">Sweet Treats</span>
+                    <span class="logo-sub">BAKERY</span>
+                </a>
+
+                <div>
+                    <h2>Join us and taste <span>something sweet.</span></h2>
+                    <ul class="benefits">
+                        <li><b>🎁</b> Exclusive member offers</li>
+                        <li><b>⚡</b> Faster checkout every time</li>
+                        <li><b>♡</b> Wishlist and saved items</li>
+                        <li><b>📦</b> Complete order history</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- RIGHT: Form -->
+            <div class="auth-form-side">
+                <a href="index.html" class="auth-skip">Skip for now →</a>
+
+                <h3>Create Account 🎂</h3>
+                <p class="auth-sub">Sign up in less than a minute.</p>
+
+                <form id="signupForm" class="auth-form" novalidate>
+
+                    <div class="two-col">
+                        <div class="form-group">
+                            <label for="sName">Full Name</label>
+                            <div class="input-wrap">
+                                <span class="icon">👤</span>
+                                <input type="text" id="sName" placeholder="Your name">
+                            </div>
+                            <small class="error" id="sNameError"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sPhone">Phone Number</label>
+                            <div class="input-wrap">
+                                <span class="icon">📱</span>
+                                <input type="text" id="sPhone" placeholder="10 digit number">
+                            </div>
+                            <small class="error" id="sPhoneError"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sEmail">Email Address</label>
+                        <div class="input-wrap">
+                            <span class="icon">✉️</span>
+                            <input type="text" id="sEmail" placeholder="you@example.com">
+                        </div>
+                        <small class="error" id="sEmailError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sPassword">Password</label>
+                        <div class="input-wrap">
+                            <span class="icon">🔒</span>
+                            <input type="password" id="sPassword" class="pass-input" placeholder="Min 6 characters (letter + number)">
+                            <button type="button" class="eye-btn" onclick="togglePass('sPassword', this)">👁️</button>
+                        </div>
+                        <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+                        <span class="strength-text" id="strengthText"></span>
+                        <small class="error" id="sPasswordError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sConfirm">Confirm Password</label>
+                        <div class="input-wrap">
+                            <span class="icon">🔐</span>
+                            <input type="password" id="sConfirm" class="pass-input" placeholder="Enter password again">
+                            <button type="button" class="eye-btn" onclick="togglePass('sConfirm', this)">👁️</button>
+                        </div>
+                        <small class="error" id="sConfirmError"></small>
+                    </div>
+
+                    <button type="submit" class="auth-btn">Create Account</button>
+                </form>
+
+                <p class="auth-bottom">Already have an account? <a href="login.html">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---------- Password show / hide ----------
+        function togglePass(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                btn.textContent = "🙈";
+            } else {
+                input.type = "password";
+                btn.textContent = "👁️";
+            }
+        }
+
+        function showError(inputId, errorId, message) {
+            document.getElementById(errorId).textContent = message;
+            document.getElementById(inputId).classList.add("invalid");
+        }
+
+        function clearError(inputId, errorId) {
+            document.getElementById(errorId).textContent = "";
+            document.getElementById(inputId).classList.remove("invalid");
+        }
+
+        // ---------- Password strength (type karte hi bar + text) ----------
+        const passwordInput = document.getElementById("sPassword");
+        const strengthText = document.getElementById("strengthText");
+        const strengthFill = document.getElementById("strengthFill");
+
+        passwordInput.addEventListener("input", function () {
+            const pass = passwordInput.value;
+            let score = 0;
+
+            if (pass.length >= 6) { score = score + 1; }
+            if (/[A-Za-z]/.test(pass) && /[0-9]/.test(pass)) { score = score + 1; }
+            if (/[^A-Za-z0-9]/.test(pass)) { score = score + 1; }
+
+            if (pass === "") {
+                strengthText.textContent = "";
+                strengthFill.style.width = "0";
+            } else if (score <= 1) {
+                strengthText.textContent = "Weak";
+                strengthText.style.color = "#ef4444";
+                strengthFill.style.width = "33%";
+                strengthFill.style.background = "#ef4444";
+            } else if (score === 2) {
+                strengthText.textContent = "Medium";
+                strengthText.style.color = "#f59e0b";
+                strengthFill.style.width = "66%";
+                strengthFill.style.background = "#f59e0b";
+            } else {
+                strengthText.textContent = "Strong";
+                strengthText.style.color = "#059669";
+                strengthFill.style.width = "100%";
+                strengthFill.style.background = "#059669";
+            }
+        });
+
+        // ---------- Validation ----------
+        function validateSignup() {
+            let isValid = true;
+
+            const name = document.getElementById("sName").value.trim();
+            const email = document.getElementById("sEmail").value.trim();
+            const phone = document.getElementById("sPhone").value.trim();
+            const pass = document.getElementById("sPassword").value;
+            const confirm = document.getElementById("sConfirm").value;
+
+            if (!/^[A-Za-z ]{3,}$/.test(name)) {
+                showError("sName", "sNameError", "Only letters allowed (min 3)");
+                isValid = false;
+            } else {
+                clearError("sName", "sNameError");
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError("sEmail", "sEmailError", "Enter a valid email");
+                isValid = false;
+            } else {
+                clearError("sEmail", "sEmailError");
+            }
+
+            if (!/^[6-9][0-9]{9}$/.test(phone)) {
+                showError("sPhone", "sPhoneError", "Enter a valid 10 digit number (starts with 6-9)");
+                isValid = false;
+            } else {
+                clearError("sPhone", "sPhoneError");
+            }
+
+            if (pass.length < 6 || !/[A-Za-z]/.test(pass) || !/[0-9]/.test(pass)) {
+                showError("sPassword", "sPasswordError", "Min 6 characters with letter and number");
+                isValid = false;
+            } else {
+                clearError("sPassword", "sPasswordError");
+            }
+
+            if (confirm !== pass || confirm === "") {
+                showError("sConfirm", "sConfirmError", "Passwords do not match");
+                isValid = false;
+            } else {
+                clearError("sConfirm", "sConfirmError");
+            }
+
+            return isValid;
+        }
+
+        // ---------- Submit ----------
+        document.getElementById("signupForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (validateSignup() === false) {
+                return;
+            }
+
+            const newUser = {
+                name: document.getElementById("sName").value.trim(),
+                email: document.getElementById("sEmail").value.trim().toLowerCase(),
+                phone: document.getElementById("sPhone").value.trim(),
+                password: document.getElementById("sPassword").value
+            };
+
+            fetch("/api/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newUser)
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                if (data.success) {
+                    localStorage.setItem("user", JSON.stringify(data.user));
+                    window.location.href = "index.html";
+                } else {
+                    showError("sEmail", "sEmailError", data.message);
+                }
+            })
+            .catch(function () {
+                alert("Unable to connect to the server. Please make sure the server is running.");
+            });
+        });
+    </script>
+</body>
+</html>
