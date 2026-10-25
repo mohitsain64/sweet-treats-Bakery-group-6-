@@ -1,0 +1,24 @@
+{
+  "name": "sweet-treats-bakery-group-6-",
+  "version": "1.0.0",
+  "description": "Team project website developed using HTML and CSS.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohitsain64/sweet-treats-Bakery-group-6-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mohitsain64/sweet-treats-Bakery-group-6-/issues"
+  },
+  "homepage": "https://github.com/mohitsain64/sweet-treats-Bakery-group-6-#readme",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}

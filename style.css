@@ -721,3 +721,139 @@ a.wishlist-icon {
     color: var(--text-muted);
     margin: 20px 0 60px 0;
 }
+/* Buy Now button */
+.buy-now-btn {
+    background: white;
+    color: var(--primary-brown);
+    border: 2px solid var(--primary-brown);
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.buy-now-btn:hover {
+    background: var(--primary-brown);
+    color: white;
+}
+
+/* Checkout page */
+.checkout-layout {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 30px;
+}
+
+.box {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.box h3 {
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+}
+
+.form-group input.invalid,
+.form-group textarea.invalid {
+    border-color: #ef4444;
+}
+
+.error {
+    display: block;
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 4px;
+    min-height: 14px;
+}
+
+.pay-options label {
+    margin-right: 15px;
+    font-weight: 500;
+}
+
+.place-order-btn {
+    width: 100%;
+    background: var(--primary-brown);
+    color: white;
+    border: none;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.summary-total {
+    border-top: 1px solid var(--border-light);
+    padding-top: 12px;
+    margin-top: 12px;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.success-box {
+    text-align: center;
+    padding: 60px 20px;
+}
+/* Contact page */
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    background: white;
+}
+
+.form-group select.invalid {
+    border-color: #ef4444;
+}
+
+.success-msg {
+    display: none;
+    background: #d1fae5;
+    color: #065f46;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}

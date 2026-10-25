@@ -255,4 +255,36 @@ if (searchInput) {
         });
     });
 }
+// ---- Har card me "Buy Now" button lagana ----
+document.querySelectorAll(".product-card").forEach(function (card) {
+    const addBtn = card.querySelector(".add-to-cart-btn");
+    if (!addBtn) {
+        return;
+    }
+
+    // naya button banao
+    const buyBtn = document.createElement("button");
+    buyBtn.className = "buy-now-btn";
+    buyBtn.textContent = "Buy Now";
+
+    // Add to Cart ke just baad lagao
+    addBtn.after(buyBtn);
+
+    // Buy Now click hone par
+    buyBtn.addEventListener("click", function () {
+        const name = card.querySelector(".product-title").textContent;
+        const priceText = card.querySelector(".current-price").textContent;
+        const price = Number(priceText.replace("₹", "").replace(/,/g, ""));
+        const image = card.querySelector("img").src;
+        const weight = card.querySelector(".weight-btn.active").textContent;
+
+        const item = { name: name, price: price, image: image, weight: weight, qty: 1 };
+
+        // sirf ye ek item "buyNow" me save karo
+        localStorage.setItem("buyNow", JSON.stringify(item));
+
+        // checkout page pe bhejo
+        window.location.href = "checkout.html";
+    });
+});
 updateCartCount();

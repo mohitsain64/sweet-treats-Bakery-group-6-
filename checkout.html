@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Sweet Treats</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="brand">
+            <span class="brand-title">Sweet Treats</span>
+            <span class="brand-subtitle">Bakery</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#products">Cakes</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="wishlist.html" class="wishlist-icon">♡ <span id="wishCount">0</span></a>
+            <a href="cart.html" class="cart-btn">🛒 Cart <span id="cartCount">0</span></a>
+        </div>
+    </nav>
+
+    <div class="checkout-layout" id="checkoutPage">
+
+        <!-- LEFT: Address form -->
+        <div class="box">
+            <h3>Delivery Details</h3>
+            <form id="checkoutForm" novalidate>
+
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="Enter your name">
+                    <small class="error" id="nameError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" placeholder="10 digit mobile number">
+                    <small class="error" id="phoneError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" placeholder="you@example.com">
+                    <small class="error" id="emailError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Full Address</label>
+                    <textarea id="address" rows="3" placeholder="House no, street, area"></textarea>
+                    <small class="error" id="addressError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" placeholder="City">
+                    <small class="error" id="cityError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="pincode">Pincode</label>
+                    <input type="text" id="pincode" placeholder="6 digit pincode">
+                    <small class="error" id="pincodeError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="deliveryDate">Delivery Date</label>
+                    <input type="date" id="deliveryDate">
+                    <small class="error" id="dateError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <div class="pay-options">
+                        <label><input type="radio" name="payment" value="UPI"> UPI</label>
+                        <label><input type="radio" name="payment" value="Card"> Card</label>
+                        <label><input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery</label>
+                    </div>
+                    <small class="error" id="paymentError"></small>
+                </div>
+
+                <button type="submit" class="place-order-btn">Place Order</button>
+            </form>
+        </div>
+
+        <!-- RIGHT: Order summary -->
+        <div class="box" style="height: fit-content;">
+            <h3>Order Summary</h3>
+            <div id="summaryItems"></div>
+            <div class="summary-total">
+                <span>Total</span>
+                <span id="summaryTotal">₹0</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // ---------- 1. Kaun se items checkout me hain ----------
+        const buyNowItem = JSON.parse(localStorage.getItem("buyNow"));
+        let items = [];
+
+        if (buyNowItem) {
+            items = [buyNowItem];      // Buy Now se aaye
+        } else {
+            items = getCart();         // Cart se aaye
+        }
+
+        // ---------- 2. Order summary dikhana ----------
+        let total = 0;
+        const summaryBox = document.getElementById("summaryItems");
+
+        if (items.length === 0) {
+            document.getElementById("checkoutPage").innerHTML =
+                '<div class="box success-box"><h3>Nothing to checkout 😢</h3><br><a href="index.html" class="checkout-btn">Go to Shop</a></div>';
+        }
+
+        items.forEach(function (item) {
+            const itemTotal = item.price * item.qty;
+            total = total + itemTotal;
+            summaryBox.innerHTML += `
+                <div class="summary-item">
+                    <span>${item.name} (${item.weight}) x ${item.qty}</span>
+                    <span>₹${itemTotal}</span>
+                </div>
+            `;
+        });
+
+        document.getElementById("summaryTotal").textContent = "₹" + total;
+
+        // ---------- 3. Aaj se pehle ki date block karna ----------
+        const dateInput = document.getElementById("deliveryDate");
+        if (dateInput) {
+            const today = new Date().toISOString().split("T")[0];
+            dateInput.min = today;
+        }
+
+        // ---------- 4. Error dikhane / hatane ke functions ----------
+        function showError(inputId, errorId, message) {
+            document.getElementById(errorId).textContent = message;
+            const input = document.getElementById(inputId);
+            if (input) {
+                input.classList.add("invalid");
+            }
+        }
+
+        function clearError(inputId, errorId) {
+            document.getElementById(errorId).textContent = "";
+            const input = document.getElementById(inputId);
+            if (input) {
+                input.classList.remove("invalid");
+            }
+        }
+
+        // ---------- 5. Validation ----------
+        function validateForm() {
+            let isValid = true;
+
+            const name = document.getElementById("fullName").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const address = document.getElementById("address").value.trim();
+            const city = document.getElementById("city").value.trim();
+            const pincode = document.getElementById("pincode").value.trim();
+            const date = document.getElementById("deliveryDate").value;
+            const payment = document.querySelector('input[name="payment"]:checked');
+
+            // Name: sirf letters aur space, kam se kam 3 characters
+            if (name === "") {
+                showError("fullName", "nameError", "Name is required");
+                isValid = false;
+            } else if (!/^[A-Za-z ]{3,}$/.test(name)) {
+                showError("fullName", "nameError", "Only letters allowed (min 3)");
+                isValid = false;
+            } else {
+                clearError("fullName", "nameError");
+            }
+
+            // Phone: 10 digit, 6-9 se start
+            if (!/^[6-9][0-9]{9}$/.test(phone)) {
+                showError("phone", "phoneError", "Enter valid 10 digit number (starts with 6-9)");
+                isValid = false;
+            } else {
+                clearError("phone", "phoneError");
+            }
+
+            // Email
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError("email", "emailError", "Enter a valid email");
+                isValid = false;
+            } else {
+                clearError("email", "emailError");
+            }
+
+            // Address: kam se kam 10 characters
+            if (address.length < 10) {
+                showError("address", "addressError", "Address must be at least 10 characters");
+                isValid = false;
+            } else {
+                clearError("address", "addressError");
+            }
+
+            // City: sirf letters
+            if (!/^[A-Za-z ]{2,}$/.test(city)) {
+                showError("city", "cityError", "Enter a valid city name");
+                isValid = false;
+            } else {
+                clearError("city", "cityError");
+            }
+
+            // Pincode: 6 digit
+            if (!/^[0-9]{6}$/.test(pincode)) {
+                showError("pincode", "pincodeError", "Pincode must be 6 digits");
+                isValid = false;
+            } else {
+                clearError("pincode", "pincodeError");
+            }
+
+            // Date
+            if (date === "") {
+                showError("deliveryDate", "dateError", "Select a delivery date");
+                isValid = false;
+            } else {
+                clearError("deliveryDate", "dateError");
+            }
+
+            // Payment
+            if (payment === null) {
+                document.getElementById("paymentError").textContent = "Select a payment method";
+                isValid = false;
+            } else {
+                document.getElementById("paymentError").textContent = "";
+            }
+
+            return isValid;
+        }
+
+        // ---------- 6. Form submit hone par ----------
+        const form = document.getElementById("checkoutForm");
+
+        if (form) {
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();   // page reload rokna
+
+                if (validateForm() === false) {
+                    return;               // galti hai to yahin ruk jao
+                }
+
+                const order = {
+                    orderId: "ORD" + Date.now(),
+                    name: document.getElementById("fullName").value.trim(),
+                    phone: document.getElementById("phone").value.trim(),
+                    email: document.getElementById("email").value.trim(),
+                    address: document.getElementById("address").value.trim(),
+                    city: document.getElementById("city").value.trim(),
+                    pincode: document.getElementById("pincode").value.trim(),
+                    deliveryDate: document.getElementById("deliveryDate").value,
+                    payment: document.querySelector('input[name="payment"]:checked').value,
+                    items: items,
+                    total: total,
+                    orderDate: new Date().toLocaleString()
+                };
+
+                // Order ko server pe bhejo
+                fetch("/api/orders", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(order)
+                })
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        if (data.success) {
+                            // Order ho gaya, ab cart / buyNow saaf karo
+                            if (buyNowItem) {
+                                localStorage.removeItem("buyNow");
+                            } else {
+                                saveCart([]);
+                            }
+
+                            document.getElementById("checkoutPage").innerHTML =
+                                '<div class="box success-box" style="grid-column: 1 / 3;">' +
+                                '<h2>🎉 Order Placed!</h2><br>' +
+                                '<p>Thank you, ' + order.name + '. Your order ID is <strong>' + order.orderId + '</strong></p><br>' +
+                                '<a href="index.html" class="checkout-btn">Continue Shopping</a></div>';
+                        } else {
+                            alert("Order save nahi hua: " + data.message);
+                        }
+                    })
+                    .catch(function () {
+                        alert("Server se connect nahi ho paya. Terminal me 'node server.js' chalaya?");
+                    });
+            });
+        }
+    </script>
+</body>
+
+</html>

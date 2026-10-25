@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Sweet Treats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="brand">
+            <span class="brand-title">Sweet Treats</span>
+            <span class="brand-subtitle">Bakery</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#products">Cakes</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="wishlist.html" class="wishlist-icon">♡ <span id="wishCount">0</span></a>
+            <a href="cart.html" class="cart-btn">🛒 Cart <span id="cartCount">0</span></a>
+        </div>
+    </nav>
+
+    <div class="cart-container" style="max-width: 600px;">
+        <h2>Contact Us</h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">Open for your questions</p>
+
+        <div class="box">
+            <div class="success-msg" id="successMsg">Thanks for your feedback</div>
+
+            <form id="contactForm" novalidate>
+
+                <div class="form-group">
+                    <label for="cName">Full Name</label>
+                    <input type="text" id="cName" placeholder="Enter your name">
+                    <small class="error" id="cNameError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="cEmail">Email</label>
+                    <input type="text" id="cEmail" placeholder="you@example.com">
+                    <small class="error" id="cEmailError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="cPhone">Phone Number</label>
+                    <input type="text" id="cPhone" placeholder="10 digit mobile number">
+                    <small class="error" id="cPhoneError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="cSubject">Subject</label>
+                    <select id="cSubject">
+                        <option value="">-- Select subject --</option>
+                        <option value="Order Query">Order Query</option>
+                        <option value="Custom Cake">Custom Cake</option>
+                        <option value="Feedback">Feedback</option>
+                        <option value="Complaint">Complaint</option>
+                    </select>
+                    <small class="error" id="cSubjectError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="cMessage">Message</label>
+                    <textarea id="cMessage" rows="4" .placeholder="Write your message (min 10 characters)"></textarea>
+                    <small class="error" id="cMessageError"></small>
+                </div>
+
+                <button type="submit" class="place-order-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // ---------- Error dikhane / hatane ke functions ----------
+        function showError(inputId, errorId, message) {
+            document.getElementById(errorId).textContent = message;
+            document.getElementById(inputId).classList.add("invalid");
+        }
+
+        function clearError(inputId, errorId) {
+            document.getElementById(errorId).textContent = "";
+            document.getElementById(inputId).classList.remove("invalid");
+        }
+
+        // ---------- Validation ----------
+        function validateContact() {
+            let isValid = true;
+
+            const name = document.getElementById("cName").value.trim();
+            const email = document.getElementById("cEmail").value.trim();
+            const phone = document.getElementById("cPhone").value.trim();
+            const subject = document.getElementById("cSubject").value;
+            const message = document.getElementById("cMessage").value.trim();
+
+            // Name: sirf letters, min 3
+            if (!/^[A-Za-z ]{3,}$/.test(name)) {
+                showError("cName", "cNameError", "Only letters allowed (min 3)");
+                isValid = false;
+            } else {
+                clearError("cName", "cNameError");
+            }
+
+            // Email
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError("cEmail", "cEmailError", "Enter a valid email");
+                isValid = false;
+            } else {
+                clearError("cEmail", "cEmailError");
+            }
+
+            // Phone: 10 digit, 6-9 se start
+            if (!/^[6-9][0-9]{9}$/.test(phone)) {
+                showError("cPhone", "cPhoneError", "Enter valid 10 digit number (starts with 6-9)");
+                isValid = false;
+            } else {
+                clearError("cPhone", "cPhoneError");
+            }
+
+            // Subject
+            if (subject === "") {
+                showError("cSubject", "cSubjectError", "Please select a subject");
+                isValid = false;
+            } else {
+                clearError("cSubject", "cSubjectError");
+            }
+
+            // Message: min 10 characters
+            if (message.length < 10) {
+                showError("cMessage", "cMessageError", "Message must be at least 10 characters");
+                isValid = false;
+            } else {
+                clearError("cMessage", "cMessageError");
+            }
+
+            return isValid;
+        }
+
+        // ---------- Form submit hone par ----------
+        const contactForm = document.getElementById("contactForm");
+
+        contactForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (validateContact() === false) {
+                return;
+            }
+
+            const msg = {
+                id: "MSG" + Date.now(),
+                name: document.getElementById("cName").value.trim(),
+                email: document.getElementById("cEmail").value.trim(),
+                phone: document.getElementById("cPhone").value.trim(),
+                subject: document.getElementById("cSubject").value,
+                message: document.getElementById("cMessage").value.trim(),
+                date: new Date().toLocaleString()
+            };
+
+            fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(msg)
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                if (data.success) {
+                    document.getElementById("successMsg").style.display = "block";
+                    contactForm.reset();
+                } else {
+                    alert("Message save nahi hua: " + data.message);
+                }
+            })
+            .catch(function () {
+                alert("Server se connect nahi ho paya. Terminal me 'node server.js' chalaya?");
+            });
+        });
+    </script>
+</body>
+</html>
