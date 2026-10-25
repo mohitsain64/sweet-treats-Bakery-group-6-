@@ -1,21 +1,23 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sweet Treats Bakery</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <nav class="navbar">
         <a href="#home" class="brand">
             <span class="brand-title">Sweet Treats</span>
             <span class="brand-subtitle">Bakery</span>
-        </a> 
+        </a>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#products">Cakes</a></li>
@@ -29,17 +31,18 @@
                 <span class="search-icon">🔍</span>
                 <input type="text" id="searchInput" placeholder="Search cakes...">
             </div>
-            <button class="wishlist-icon" aria-label="Wishlist" >♡</button>
-            <button class="cart-btn">
-                🛒 Cart 
-            </button>
+            <button class="wishlist-icon" aria-label="Wishlist">♡</button>
+            <a href="cart.html" class="cart-btn">
+                🛒 Cart <span id="cartCount">0</span>
+            </a>
         </div>
     </nav>
 
     <section class="hero" id="home">
         <div class="hero-content">
             <h1>Handcrafted Cakes & Pastries <span>Delivered to Your Doorstep</span></h1>
-            <p>Every bite tells a story of passion, premium ingredients, and decades of artisanal baking tradition. Order online and receive a freshly baked masterpiece at your door.</p>
+            <p>Every bite tells a story of passion, premium ingredients, and decades of artisanal baking tradition.
+                Order online and receive a freshly baked masterpiece at your door.</p>
             <div class="hero-buttons">
                 <a href="#products" class="btn-primary-dark">Explore Menu →</a>
                 <a href="#custom-orders" class="btn-secondary-light">Custom Order</a>
@@ -64,7 +67,8 @@
             </div>
         </div>
         <div class="hero-image-container">
-            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80" alt="Dark Chocolate Drip Cake">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80"
+                alt="Dark Chocolate Drip Cake">
             <div class="hero-badge-tag">
                 <span>Today's Special</span>
                 <strong>Dark Chocolate Drip</strong>
@@ -72,7 +76,7 @@
         </div>
     </section>
 
-   
+
     <div class="categories-bar">
         <button class="category-pill active" data-category="special">Special Cakes</button>
         <button class="category-pill" data-category="chocolate">Chocolate</button>
@@ -83,7 +87,7 @@
         <button class="category-pill" data-category="cheesecakes">Cheesecakes</button>
     </div>
 
-     <div class="section-container" id="products">
+    <div class="section-container" id="products">
         <div class="section-header">
             <h2>Our Signature Delights</h2>
             <p>Handpicked favorites loved by our community</p>
@@ -240,7 +244,7 @@
             </div>
         </div>
 
-        <div class="product-card" data-category="chocolate special">
+        <div class="product-card" data-category=" tarts special">
             <div class="product-img-wrapper">
                 <span class="card-tag">Bestseller</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
@@ -383,11 +387,12 @@
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
         </div>
-                <!-- EGGLESS -->
+        <!-- EGGLESS -->
         <div class="product-card" data-category="eggless">
             <div class="product-img-wrapper">
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://incredibleart.co.in/wp-content/uploads/2026/04/eggless-chocolate-cake-recipe.png" alt="Eggless Chocolate Fudge Cake">
+                <img src="https://incredibleart.co.in/wp-content/uploads/2026/04/eggless-chocolate-cake-recipe.png"
+                    alt="Eggless Chocolate Fudge Cake">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -410,7 +415,8 @@
         <div class="product-card" data-category="eggless">
             <div class="product-img-wrapper">
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZG89rzvJdM_m4dtthlmWO9cPuf7KIR-R4-AR0sVCh4bJxzfZ8K58U0LuZ&s=10" alt="Eggless Vanilla Bean Cake">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZG89rzvJdM_m4dtthlmWO9cPuf7KIR-R4-AR0sVCh4bJxzfZ8K58U0LuZ&s=10"
+                    alt="Eggless Vanilla Bean Cake">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -432,7 +438,8 @@
             <div class="product-img-wrapper">
                 <span class="card-tag">Eggless</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5E41BFgcHUjYW14256zxtb5tP2ppBye7mluK5O0i3CuMuS5yten84OfXM&s=10" alt="Eggless Black Forest Cake">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5E41BFgcHUjYW14256zxtb5tP2ppBye7mluK5O0i3CuMuS5yten84OfXM&s=10"
+                    alt="Eggless Black Forest Cake">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -458,7 +465,8 @@
             <div class="product-img-wrapper">
                 <span class="card-tag">Bestseller</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLR_6VRFQWi6FKY0dFdaWicCMn-yUEyGoDi4Y2OhnXs9p_9bAZOIvTVbK-&s=10" alt="Oreo Chocolate Cheesecake">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLR_6VRFQWi6FKY0dFdaWicCMn-yUEyGoDi4Y2OhnXs9p_9bAZOIvTVbK-&s=10"
+                    alt="Oreo Chocolate Cheesecake">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -482,7 +490,8 @@
             <div class="product-img-wrapper">
                 <span class="card-tag" style="background:var(--accent-pink); color:#991b1b;">Seasonal</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://sinfullyspicy.com/wp-content/uploads/2023/07/1200-by-1200-images.jpg" alt="Mango Cheesecake">
+                <img src="https://sinfullyspicy.com/wp-content/uploads/2023/07/1200-by-1200-images.jpg"
+                    alt="Mango Cheesecake">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -503,7 +512,8 @@
         <div class="product-card" data-category="cheesecakes">
             <div class="product-img-wrapper">
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMcvPInD8e3jO8ZN58uSOAa4yVM3W14DGPbG1eisLXvENu25165ub5ReY&s=10" alt="Salted Caramel Cheesecake">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMcvPInD8e3jO8ZN58uSOAa4yVM3W14DGPbG1eisLXvENu25165ub5ReY&s=10"
+                    alt="Salted Caramel Cheesecake">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -527,7 +537,8 @@
         <div class="product-card" data-category="pastries">
             <div class="product-img-wrapper">
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk4BmXt2FPjqTR4VuTunOW-otQo05Q9eQ8XM1clplXKg&s=10" alt="Chocolate Éclair">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk4BmXt2FPjqTR4VuTunOW-otQo05Q9eQ8XM1clplXKg&s=10"
+                    alt="Chocolate Éclair">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -549,7 +560,8 @@
             <div class="product-img-wrapper">
                 <span class="card-tag" style="background:var(--accent-green); color:#0284c7;">Pastry</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH_77bo5AUA35BC2Id5LrkVE2kWdrQfxRQ_ZhzSjMhhA&s=10" alt="Fruit Danish Pastry">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH_77bo5AUA35BC2Id5LrkVE2kWdrQfxRQ_ZhzSjMhhA&s=10"
+                    alt="Fruit Danish Pastry">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -570,7 +582,8 @@
         <div class="product-card" data-category="pastries">
             <div class="product-img-wrapper">
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9ZI1_uXv1pDx2-ekTJhn-ubhhZd8r-vMfTIrnCrDUtQ&s=10" alt="Hazelnut Praline Pastry">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9ZI1_uXv1pDx2-ekTJhn-ubhhZd8r-vMfTIrnCrDUtQ&s=10"
+                    alt="Hazelnut Praline Pastry">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -595,7 +608,8 @@
             <div class="product-img-wrapper">
                 <span class="card-tag">Bestseller</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://barleyandsage.com/wp-content/uploads/2022/02/chocolate-fudge-cupcakes-0405.jpg" alt="Chocolate Fudge Cupcakes">
+                <img src="https://barleyandsage.com/wp-content/uploads/2022/02/chocolate-fudge-cupcakes-0405.jpg"
+                    alt="Chocolate Fudge Cupcakes">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -619,7 +633,8 @@
             <div class="product-img-wrapper">
                 <span class="card-tag">Eggless</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlTsBHC14-9XElZQFwn9XE-48C0v9FtqzkOI3HMlO2AQ&s=10" alt="Red Velvet Cupcakes">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlTsBHC14-9XElZQFwn9XE-48C0v9FtqzkOI3HMlO2AQ&s=10"
+                    alt="Red Velvet Cupcakes">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -640,7 +655,8 @@
         <div class="product-card" data-category="cupcakes">
             <div class="product-img-wrapper">
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsfFFYVC8Kgo0P3NT83XFtHwv1YjLpGlymQ0VzGsxEIQ&s=10" alt="Lemon Zest Cupcakes">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsfFFYVC8Kgo0P3NT83XFtHwv1YjLpGlymQ0VzGsxEIQ&s=10"
+                    alt="Lemon Zest Cupcakes">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -662,7 +678,8 @@
             <div class="product-img-wrapper">
                 <span class="card-tag" style="background:#e0e7ff; color:#3730a3;">Limited</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqJFbOS3KmZ0wX_hH-2ZNz3trOp0UOQQf1gt5vT2nxig&s=10" alt="Funfetti Birthday Cupcakes">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqJFbOS3KmZ0wX_hH-2ZNz3trOp0UOQQf1gt5vT2nxig&s=10"
+                    alt="Funfetti Birthday Cupcakes">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -686,7 +703,8 @@
         <div class="product-card" data-category="chocolate">
             <div class="product-img-wrapper">
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbfNDhcL2yYsxC9iURGHmChYtvHoGdMqRTFo71gQaTpw&s=10" alt="Chocolate Hazelnut Cake">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbfNDhcL2yYsxC9iURGHmChYtvHoGdMqRTFo71gQaTpw&s=10"
+                    alt="Chocolate Hazelnut Cake">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -710,7 +728,8 @@
             <div class="product-img-wrapper">
                 <span class="card-tag">Bestseller</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAQPKs8NRu7dTQi57fAo91Zm1bV2fL_1P2Jeus4G8n3Q&s=10" alt="Double Chocolate Brownie Cake">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAQPKs8NRu7dTQi57fAo91Zm1bV2fL_1P2Jeus4G8n3Q&s=10"
+                    alt="Double Chocolate Brownie Cake">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -732,7 +751,8 @@
         <div class="product-card" data-category="tarts">
             <div class="product-img-wrapper">
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS57VLadycWuc0_lobcbgD-82bfI3oG7UxdCoIyrXbksg&s=10" alt="Lemon Meringue Tart">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS57VLadycWuc0_lobcbgD-82bfI3oG7UxdCoIyrXbksg&s=10"
+                    alt="Lemon Meringue Tart">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -756,7 +776,8 @@
             <div class="product-img-wrapper">
                 <span class="card-tag" style="background:whitesmoke; color:blue;">Seasonal</span>
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbtbv5CC3i7MhAqUdN9qtcgkKlOI-vhFwNbYg-nR1lyQ&s=10" alt="Apple Cinnamon Tart">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbtbv5CC3i7MhAqUdN9qtcgkKlOI-vhFwNbYg-nR1lyQ&s=10"
+                    alt="Apple Cinnamon Tart">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -777,7 +798,8 @@
         <div class="product-card" data-category="tarts">
             <div class="product-img-wrapper">
                 <button class="fav-btn" aria-label="Add to Wishlist">♡</button>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9EyUODeKrT_deG8JzGlkseO7hZvvvd7Dujhl0X9-gQw&s=10" alt="Chocolate Ganache Tart">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9EyUODeKrT_deG8JzGlkseO7hZvvvd7Dujhl0X9-gQw&s=10"
+                    alt="Chocolate Ganache Tart">
             </div>
             <div class="product-details">
                 <div class="weight-selector">
@@ -883,7 +905,9 @@
             });
         });
     </script>
+    <script src="script.js"></script>
 
-   
+
 </body>
+
 </html>

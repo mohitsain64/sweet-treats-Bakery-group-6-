@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Sweet Treats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="brand">
+            <span class="brand-title">Sweet Treats</span>
+            <span class="brand-subtitle">Bakery</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#products">Cakes</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="cart.html" class="cart-btn">🛒 Cart <span id="cartCount">0</span></a>
+        </div>
+    </nav>
+
+    <div class="cart-container">
+        <h2>Your Cart</h2>
+        <br>
+        <div id="cartItems"></div>
+        <div class="cart-total" id="cartTotal"></div>
+        <div style="text-align:right;">
+            <a href="checkout.html" class="checkout-btn" id="checkoutBtn">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const cartItemsBox = document.getElementById("cartItems");
+        const cartTotalBox = document.getElementById("cartTotal");
+        const checkoutBtn = document.getElementById("checkoutBtn");
+
+        // Cart ko screen pe dikhane wala function
+        function showCart() {
+            const cart = getCart();
+            cartItemsBox.innerHTML = "";
+            let grandTotal = 0;
+
+            if (cart.length === 0) {
+                cartItemsBox.innerHTML = "<p>Your cart is empty 😢</p>";
+                cartTotalBox.textContent = "";
+                checkoutBtn.style.display = "none";
+                return;
+            }
+
+            cart.forEach(function (item, index) {
+                const itemTotal = item.price * item.qty;
+                grandTotal = grandTotal + itemTotal;
+
+                cartItemsBox.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-info">
+                            <h4>${item.name}</h4>
+                            <p>Weight: ${item.weight}</p>
+                            <p>Price: ₹${item.price}</p>
+                        </div>
+                        <div class="qty-box">
+                            <button onclick="changeQty(${index}, -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button onclick="changeQty(${index}, 1)">+</button>
+                        </div>
+                        <strong>₹${itemTotal}</strong>
+                        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                    </div>
+                `;
+            });
+
+            cartTotalBox.textContent = "Total: ₹" + grandTotal;
+            checkoutBtn.style.display = "inline-block";
+        }
+
+        // Quantity badhana / ghatana
+        function changeQty(index, change) {
+            const cart = getCart();
+            cart[index].qty = cart[index].qty + change;
+            if (cart[index].qty < 1) {
+                cart[index].qty = 1;
+            }
+            saveCart(cart);
+            showCart();
+        }
+
+        // Item hatana
+        function removeItem(index) {
+            const cart = getCart();
+            cart.splice(index, 1);
+            saveCart(cart);
+            showCart();
+        }
+
+        showCart();
+    </script>
+</body>
+</html>
