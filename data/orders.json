@@ -42,5 +42,28 @@
     ],
     "total": 999,
     "orderDate": "25/10/2026, 14:08:55"
+  },
+  {
+    "orderId": "ORD1792990007525",
+    "userEmail": "sainm9267@gmail.com",
+    "name": "Mohit Sain",
+    "phone": "7374059164",
+    "email": "sainm9267@gmail.com",
+    "address": "fnwerjfjjkwfj",
+    "city": "kapriwas",
+    "pincode": "123126",
+    "deliveryDate": "2026-10-27",
+    "payment": "UPI",
+    "items": [
+      {
+        "name": "Blueberry Glaze Cheesecake",
+        "price": 1149,
+        "image": "https://addictedtodates.com/wp-content/uploads/2022/04/vegan-blueberry-cheesecake-4.jpg",
+        "weight": "6 Inch",
+        "qty": 1
+      }
+    ],
+    "total": 1149,
+    "orderDate": "26/10/2026, 10:16:47"
   }
 ]

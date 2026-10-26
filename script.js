@@ -317,12 +317,12 @@ function showLoginPopup() {
     const popup = document.createElement("div");
     popup.id = "loginPopup";
     popup.className = "popup-bg";
-       popup.innerHTML = `
+    popup.innerHTML = `
         <div class="popup-box">
             <h3>Login Required 🔒</h3>
             <p>Please log in to add items to your cart, save favourites to your wishlist, or place an order. Guests can browse the menu freely.</p>
             <div class="popup-btns">
-                <a href="login.html?next=index.html" class="checkout-btn">Login</a>
+              <a href="login.html?next=${window.location.pathname.split('/').pop()}" class="checkout-btn">Login</a>
                 <a href="signup.html" class="popup-secondary">Sign Up</a>
             </div>
             <button class="popup-close" onclick="closePopup()">Continue Browsing</button>
