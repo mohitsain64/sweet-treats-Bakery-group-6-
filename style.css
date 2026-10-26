@@ -795,9 +795,56 @@ a.wishlist-icon {
     min-height: 14px;
 }
 
-.pay-options label {
-    margin-right: 15px;
+/* two fields side by side (City + Pincode) */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+/* Payment method: three equal option boxes in one row */
+.pay-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.form-group .pay-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 13px;
     font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.form-group .pay-options label:hover {
+    border-color: var(--primary-brown);
+}
+
+.form-group .pay-options label:has(input:checked) {
+    border-color: var(--primary-brown);
+    background: var(--bg-cream);
+}
+
+/* radio buttons must not inherit the full-width input style */
+.form-group .pay-options input[type="radio"] {
+    width: auto;
+    padding: 0;
+    margin: 0;
+    accent-color: var(--primary-brown);
+}
+
+@media (max-width: 600px) {
+    .form-row,
+    .pay-options {
+        grid-template-columns: 1fr;
+    }
 }
 
 .place-order-btn {
