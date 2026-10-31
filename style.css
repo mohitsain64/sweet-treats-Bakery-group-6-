@@ -1880,3 +1880,63 @@ a.wishlist-icon {
         font-size: 25px;
     }
 }
+/* Modern Add to Cart Toast Notification */
+
+.cart-toast {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    background: #fffaf3;
+    color: #543827;
+    border-left: 5px solid #4caf50;
+    border-radius: 12px;
+
+    padding: 16px 22px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    animation: toastSlideIn 0.35s ease;
+}
+
+.cart-toast a {
+    color: #9b5c35;
+    font-weight: 700;
+    text-decoration: underline;
+    white-space: nowrap;
+}
+
+.cart-toast a:hover {
+    color: #63391e;
+}
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .cart-toast {
+        top: 75px;
+        left: 12px;
+        right: 12px;
+        gap: 10px;
+        padding: 14px;
+        flex-wrap: wrap;
+    }
+}

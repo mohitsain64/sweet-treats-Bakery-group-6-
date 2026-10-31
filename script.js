@@ -51,9 +51,8 @@ addButtons.forEach(function (btn) {
         if (found === false) {
             cart.push({ name: name, price: price, image: image, weight: weight, qty: 1 });
         }
-
-        saveCart(cart);
-        alert(name + " added in cart");
+saveCart(cart);
+showCartToast(name);
     });
 });
 
@@ -427,3 +426,33 @@ if (slides.length > 0 && dotsBox) {
     restartTimer();
 }
 updateCartCount();
+
+function showCartToast(productName) {
+    // Remove previous notification
+    const oldToast = document.getElementById("cartToast");
+
+    if (oldToast) {
+        oldToast.remove();
+    }
+
+    // Create notification
+    const toast = document.createElement("div");
+    toast.id = "cartToast";
+    toast.className = "cart-toast";
+    toast.setAttribute("role", "status");
+
+    const message = document.createElement("span");
+    message.textContent = "✓ " + productName + " added to cart!";
+
+    const viewCart = document.createElement("a");
+    viewCart.href = "cart.html";
+    viewCart.textContent = "View Cart";
+
+    toast.append(message, viewCart);
+    document.body.appendChild(toast);
+
+    // Automatically hide after 3 seconds
+    setTimeout(function () {
+        toast.remove();
+    }, 3000);
+}
