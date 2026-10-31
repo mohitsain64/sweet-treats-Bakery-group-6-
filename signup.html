@@ -1,243 +1,543 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Sweet Treats</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="auth.css">
 </head>
-<body>
-    <div class="auth-page">
-        <div class="auth-box">
 
-            <!-- LEFT: Banner -->
-            <div class="auth-banner">
-                <a href="index.html" class="auth-logo">
-                    <span class="logo-title">Sweet Treats</span>
-                    <span class="logo-sub">BAKERY</span>
-                </a>
+<body class="signup-page">
 
-                <div>
-                    <h2>Join us and taste <span>something sweet.</span></h2>
-                    <ul class="benefits">
-                        <li><b>🎁</b> Exclusive member offers</li>
-                        <li><b>⚡</b> Faster checkout every time</li>
-                        <li><b>♡</b> Wishlist and saved items</li>
-                        <li><b>📦</b> Complete order history</li>
-                    </ul>
-                </div>
+<div class="auth-page">
+
+    <!-- Floating cupcakes -->
+    <div class="floaters" id="floaters"></div>
+
+    <div class="auth-box">
+
+        <!-- LEFT BANNER -->
+        <div class="auth-banner">
+
+            <a href="index.html" class="auth-logo">
+                <span class="logo-title">Sweet Treats</span>
+                <span class="logo-sub">BAKERY</span>
+            </a>
+
+            <div>
+                <h2>Join us and taste <span>something sweet.</span></h2>
+
+                <ul class="benefits">
+                    <li><b>🎁</b> Exclusive member offers</li>
+                    <li><b>⚡</b> Faster checkout every time</li>
+                    <li><b>♡</b> Wishlist and saved items</li>
+                    <li><b>📦</b> Complete order history</li>
+                </ul>
             </div>
 
-            <!-- RIGHT: Form -->
-            <div class="auth-form-side">
-                <a href="index.html" class="auth-skip">Skip for now →</a>
+        </div>
 
-                <h3>Create Account 🎂</h3>
-                <p class="auth-sub">Sign up in less than a minute.</p>
+        <!-- RIGHT FORM -->
+        <div class="auth-form-side">
 
-                <form id="signupForm" class="auth-form" novalidate>
+            <a href="index.html" class="auth-skip">Skip for now →</a>
 
-                    <div class="two-col">
-                        <div class="form-group">
-                            <label for="sName">Full Name</label>
-                            <div class="input-wrap">
-                                <span class="icon">👤</span>
-                                <input type="text" id="sName" placeholder="Your name">
-                            </div>
-                            <small class="error" id="sNameError"></small>
+            <div class="form-head">
+                <div>
+                    <h3>Create Account</h3>
+                    <p class="auth-sub">Just three little steps to get started!</p>
+                </div>
+                <span class="mascot">🧁</span>
+            </div>
+
+            <!-- Progress -->
+            <div class="progress">
+
+                <div class="progress-line">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <div class="dot active">1</div>
+                <div class="dot">2</div>
+                <div class="dot">3</div>
+
+            </div>
+
+            <form id="signupForm" class="auth-form" novalidate>
+
+                <!-- STEP 1 -->
+                <div class="step active">
+
+                    <h4>Let's get to know you! 👋</h4>
+
+                    <div class="form-group">
+                        <label for="sName">Full Name</label>
+
+                        <div class="input-wrap">
+                            <span class="icon">👤</span>
+                            <input type="text" id="sName"
+                                placeholder="Your name">
                         </div>
 
-                        <div class="form-group">
-                            <label for="sPhone">Phone Number</label>
-                            <div class="input-wrap">
-                                <span class="icon">📱</span>
-                                <input type="text" id="sPhone" placeholder="10 digit number">
-                            </div>
-                            <small class="error" id="sPhoneError"></small>
-                        </div>
+                        <small class="error" id="sNameError"></small>
                     </div>
 
                     <div class="form-group">
+                        <label for="sPhone">Phone Number</label>
+
+                        <div class="input-wrap">
+                            <span class="icon">📱</span>
+                            <input type="tel" id="sPhone"
+                                placeholder="10 digit number">
+                        </div>
+
+                        <small class="error" id="sPhoneError"></small>
+                    </div>
+
+                </div>
+
+                <!-- STEP 2 -->
+                <div class="step">
+
+                    <h4>Let's secure your account! 🔐</h4>
+
+                    <div class="form-group">
                         <label for="sEmail">Email Address</label>
+
                         <div class="input-wrap">
                             <span class="icon">✉️</span>
-                            <input type="text" id="sEmail" placeholder="you@example.com">
+                            <input type="email" id="sEmail"
+                                placeholder="you@example.com">
                         </div>
+
                         <small class="error" id="sEmailError"></small>
                     </div>
 
                     <div class="form-group">
                         <label for="sPassword">Password</label>
+
                         <div class="input-wrap">
                             <span class="icon">🔒</span>
-                            <input type="password" id="sPassword" class="pass-input" placeholder="Min 6 characters (letter + number)">
-                            <button type="button" class="eye-btn" onclick="togglePass('sPassword', this)">👁️</button>
+                            <input type="password" id="sPassword"
+                                placeholder="Min 6 characters">
+                            <button type="button" class="eye-btn"
+                                onclick="togglePass('sPassword', this)">👁️</button>
                         </div>
-                        <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
-                        <span class="strength-text" id="strengthText"></span>
+
+                        <div class="strength-row">
+                            <span class="cake-meter" id="cakeMeter">🧁</span>
+                            <div>
+                                <div class="strength-bar">
+                                    <div class="strength-fill" id="strengthFill"></div>
+                                </div>
+                                <span class="strength-text" id="strengthText"></span>
+                            </div>
+                        </div>
+
                         <small class="error" id="sPasswordError"></small>
                     </div>
 
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="step">
+
+                    <h4>One last thing! 🍰</h4>
+
                     <div class="form-group">
                         <label for="sConfirm">Confirm Password</label>
+
                         <div class="input-wrap">
                             <span class="icon">🔐</span>
-                            <input type="password" id="sConfirm" class="pass-input" placeholder="Enter password again">
-                            <button type="button" class="eye-btn" onclick="togglePass('sConfirm', this)">👁️</button>
+                            <input type="password" id="sConfirm"
+                                placeholder="Enter password again">
+                            <button type="button" class="eye-btn"
+                                onclick="togglePass('sConfirm', this)">👁️</button>
                         </div>
+
                         <small class="error" id="sConfirmError"></small>
                     </div>
 
-                    <button type="submit" class="auth-btn">Create Account</button>
-                </form>
+                    <p>You're almost ready to enjoy some sweet treats!</p>
 
-                <p class="auth-bottom">Already have an account? <a href="login.html">Login</a></p>
-            </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="btn-row">
+
+                    <button type="button" class="back-btn hidden"
+                        id="backBtn" onclick="changeStep(-1)">
+                        Back
+                    </button>
+
+                    <button type="button" class="auth-btn" id="nextBtn">
+                        Continue →
+                    </button>
+
+                </div>
+
+            </form>
+
+            <p class="auth-bottom">
+                Already have an account?
+                <a href="login.html">Login</a>
+            </p>
+
         </div>
+
+        <!-- SUCCESS SCREEN -->
+        <div class="success-overlay" id="successOverlay">
+
+            <div class="success-emoji">🎂</div>
+
+            <h3>Welcome to Sweet Treats!</h3>
+
+            <p>Your account has been created successfully.</p>
+
+            <p>Redirecting you to the homepage...</p>
+
+        </div>
+
     </div>
 
-    <script>
-        // ---------- Password show / hide ----------
-        function togglePass(inputId, btn) {
-            const input = document.getElementById(inputId);
-            if (input.type === "password") {
-                input.type = "text";
-                btn.textContent = "🙈";
-            } else {
-                input.type = "password";
-                btn.textContent = "👁️";
-            }
+</div>
+
+<script>
+
+// ---------- Floating cupcakes ----------
+const floaterContainer = document.getElementById("floaters");
+
+const emojis = ["🧁", "🍩", "🍰", "🍪", "🍓"];
+
+for (let i = 0; i < 12; i++) {
+
+    const floater = document.createElement("span");
+
+    floater.className = "floater";
+    floater.textContent = emojis[i % emojis.length];
+
+    floater.style.left = Math.random() * 100 + "%";
+    floater.style.animationDuration = (10 + Math.random() * 12) + "s";
+    floater.style.animationDelay = (Math.random() * 12) + "s";
+    floater.style.fontSize = (20 + Math.random() * 20) + "px";
+
+    floaterContainer.appendChild(floater);
+}
+
+
+// ---------- Password show/hide ----------
+function togglePass(inputId, btn) {
+
+    const input = document.getElementById(inputId);
+
+    if (input.type === "password") {
+        input.type = "text";
+        btn.textContent = "🙈";
+    } else {
+        input.type = "password";
+        btn.textContent = "👁️";
+    }
+}
+
+
+// ---------- Elements ----------
+const steps = document.querySelectorAll(".step");
+const dots = document.querySelectorAll(".dot");
+
+const progressFill = document.getElementById("progressFill");
+const nextBtn = document.getElementById("nextBtn");
+const backBtn = document.getElementById("backBtn");
+
+let currentStep = 0;
+
+
+// ---------- Error functions ----------
+function showError(inputId, errorId, message) {
+
+    document.getElementById(errorId).textContent = message;
+    document.getElementById(inputId).classList.add("invalid");
+
+}
+
+function clearError(inputId, errorId) {
+
+    document.getElementById(errorId).textContent = "";
+    document.getElementById(inputId).classList.remove("invalid");
+
+}
+
+
+// ---------- Validation ----------
+function validateStep(stepNumber) {
+
+    let valid = true;
+
+    if (stepNumber === 0) {
+
+        const name = document.getElementById("sName").value.trim();
+        const phone = document.getElementById("sPhone").value.trim();
+
+        if (!/^[A-Za-z ]{3,}$/.test(name)) {
+            showError("sName", "sNameError", "Enter a valid name (minimum 3 letters)");
+            valid = false;
+        } else {
+            clearError("sName", "sNameError");
         }
 
-        function showError(inputId, errorId, message) {
-            document.getElementById(errorId).textContent = message;
-            document.getElementById(inputId).classList.add("invalid");
+        if (!/^[6-9][0-9]{9}$/.test(phone)) {
+            showError("sPhone", "sPhoneError", "Enter a valid 10 digit number");
+            valid = false;
+        } else {
+            clearError("sPhone", "sPhoneError");
         }
 
-        function clearError(inputId, errorId) {
-            document.getElementById(errorId).textContent = "";
-            document.getElementById(inputId).classList.remove("invalid");
+    }
+
+    if (stepNumber === 1) {
+
+        const email = document.getElementById("sEmail").value.trim();
+        const pass = document.getElementById("sPassword").value;
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showError("sEmail", "sEmailError", "Enter a valid email");
+            valid = false;
+        } else {
+            clearError("sEmail", "sEmailError");
         }
 
-        // ---------- Password strength (type karte hi bar + text) ----------
-        const passwordInput = document.getElementById("sPassword");
-        const strengthText = document.getElementById("strengthText");
-        const strengthFill = document.getElementById("strengthFill");
-
-        passwordInput.addEventListener("input", function () {
-            const pass = passwordInput.value;
-            let score = 0;
-
-            if (pass.length >= 6) { score = score + 1; }
-            if (/[A-Za-z]/.test(pass) && /[0-9]/.test(pass)) { score = score + 1; }
-            if (/[^A-Za-z0-9]/.test(pass)) { score = score + 1; }
-
-            if (pass === "") {
-                strengthText.textContent = "";
-                strengthFill.style.width = "0";
-            } else if (score <= 1) {
-                strengthText.textContent = "Weak";
-                strengthText.style.color = "#ef4444";
-                strengthFill.style.width = "33%";
-                strengthFill.style.background = "#ef4444";
-            } else if (score === 2) {
-                strengthText.textContent = "Medium";
-                strengthText.style.color = "#f59e0b";
-                strengthFill.style.width = "66%";
-                strengthFill.style.background = "#f59e0b";
-            } else {
-                strengthText.textContent = "Strong";
-                strengthText.style.color = "#059669";
-                strengthFill.style.width = "100%";
-                strengthFill.style.background = "#059669";
-            }
-        });
-
-        // ---------- Validation ----------
-        function validateSignup() {
-            let isValid = true;
-
-            const name = document.getElementById("sName").value.trim();
-            const email = document.getElementById("sEmail").value.trim();
-            const phone = document.getElementById("sPhone").value.trim();
-            const pass = document.getElementById("sPassword").value;
-            const confirm = document.getElementById("sConfirm").value;
-
-            if (!/^[A-Za-z ]{3,}$/.test(name)) {
-                showError("sName", "sNameError", "Only letters allowed (min 3)");
-                isValid = false;
-            } else {
-                clearError("sName", "sNameError");
-            }
-
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                showError("sEmail", "sEmailError", "Enter a valid email");
-                isValid = false;
-            } else {
-                clearError("sEmail", "sEmailError");
-            }
-
-            if (!/^[6-9][0-9]{9}$/.test(phone)) {
-                showError("sPhone", "sPhoneError", "Enter a valid 10 digit number (starts with 6-9)");
-                isValid = false;
-            } else {
-                clearError("sPhone", "sPhoneError");
-            }
-
-            if (pass.length < 6 || !/[A-Za-z]/.test(pass) || !/[0-9]/.test(pass)) {
-                showError("sPassword", "sPasswordError", "Min 6 characters with letter and number");
-                isValid = false;
-            } else {
-                clearError("sPassword", "sPasswordError");
-            }
-
-            if (confirm !== pass || confirm === "") {
-                showError("sConfirm", "sConfirmError", "Passwords do not match");
-                isValid = false;
-            } else {
-                clearError("sConfirm", "sConfirmError");
-            }
-
-            return isValid;
+        if (pass.length < 6 || !/[A-Za-z]/.test(pass) || !/[0-9]/.test(pass)) {
+            showError("sPassword", "sPasswordError", "Use at least 6 characters with a letter and number");
+            valid = false;
+        } else {
+            clearError("sPassword", "sPasswordError");
         }
 
-        // ---------- Submit ----------
-        document.getElementById("signupForm").addEventListener("submit", function (event) {
-            event.preventDefault();
+    }
 
-            if (validateSignup() === false) {
-                return;
-            }
+    if (stepNumber === 2) {
 
-            const newUser = {
-                name: document.getElementById("sName").value.trim(),
-                email: document.getElementById("sEmail").value.trim().toLowerCase(),
-                phone: document.getElementById("sPhone").value.trim(),
-                password: document.getElementById("sPassword").value
-            };
+        const pass = document.getElementById("sPassword").value;
+        const confirm = document.getElementById("sConfirm").value;
 
-            fetch("/api/signup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newUser)
-            })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                if (data.success) {
-                    localStorage.setItem("user", JSON.stringify(data.user));
-                    window.location.href = "index.html";
-                } else {
-                    showError("sEmail", "sEmailError", data.message);
-                }
-            })
-            .catch(function () {
-                alert("Unable to connect to the server. Please make sure the server is running.");
-            });
-        });
-    </script>
+        if (confirm === "" || confirm !== pass) {
+            showError("sConfirm", "sConfirmError", "Passwords do not match");
+            valid = false;
+        } else {
+            clearError("sConfirm", "sConfirmError");
+        }
+
+    }
+
+    return valid;
+
+}
+
+
+// ---------- Change steps ----------
+function changeStep(direction) {
+
+    if (direction === 1 && !validateStep(currentStep)) {
+        return;
+    }
+
+    steps[currentStep].classList.remove("active", "going-back");
+
+    currentStep += direction;
+
+    steps[currentStep].classList.add("active");
+
+    if (direction === -1) {
+        steps[currentStep].classList.add("going-back");
+    }
+
+    dots.forEach((dot, index) => {
+
+        dot.classList.remove("active", "done");
+
+        if (index < currentStep) {
+            dot.classList.add("done");
+        }
+
+        if (index === currentStep) {
+            dot.classList.add("active");
+        }
+
+    });
+
+    progressFill.style.width = (currentStep / 2 * 100) + "%";
+
+    backBtn.classList.toggle("hidden", currentStep === 0);
+
+    nextBtn.textContent =
+        currentStep === 2 ? "Create Account 🎂" : "Continue →";
+
+}
+
+
+// ---------- Password strength ----------
+const passwordInput = document.getElementById("sPassword");
+
+passwordInput.addEventListener("input", function () {
+
+    const pass = passwordInput.value;
+
+    let score = 0;
+
+    if (pass.length >= 6) score++;
+    if (/[A-Za-z]/.test(pass) && /[0-9]/.test(pass)) score++;
+    if (/[^A-Za-z0-9]/.test(pass)) score++;
+
+    const strengthText = document.getElementById("strengthText");
+    const strengthFill = document.getElementById("strengthFill");
+    const cakeMeter = document.getElementById("cakeMeter");
+
+    if (pass === "") {
+
+        strengthText.textContent = "";
+        strengthFill.style.width = "0";
+        cakeMeter.textContent = "🧁";
+
+    } else if (score <= 1) {
+
+        strengthText.textContent = "Weak";
+        strengthText.style.color = "#ef4444";
+        strengthFill.style.width = "33%";
+        strengthFill.style.background = "#ef4444";
+        cakeMeter.textContent = "🧁";
+
+    } else if (score === 2) {
+
+        strengthText.textContent = "Medium";
+        strengthText.style.color = "#f59e0b";
+        strengthFill.style.width = "66%";
+        strengthFill.style.background = "#f59e0b";
+        cakeMeter.textContent = "🧁🧁";
+
+    } else {
+
+        strengthText.textContent = "Strong";
+        strengthText.style.color = "#059669";
+        strengthFill.style.width = "100%";
+        strengthFill.style.background = "#059669";
+        cakeMeter.textContent = "🎂";
+
+    }
+
+});
+
+
+// ---------- Confetti ----------
+function createConfetti() {
+
+    const emojis = ["🎉", "✨", "🎊", "🍰", "🧁"];
+
+    for (let i = 0; i < 35; i++) {
+
+        const piece = document.createElement("span");
+
+        piece.className = "confetti";
+        piece.textContent = emojis[i % emojis.length];
+
+        piece.style.left = Math.random() * 100 + "%";
+        piece.style.animationDuration = (2 + Math.random() * 3) + "s";
+
+        document.body.appendChild(piece);
+
+        setTimeout(() => piece.remove(), 5000);
+
+    }
+
+}
+
+
+// ---------- Form submission ----------
+document.getElementById("signupForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+});
+
+nextBtn.addEventListener("click", function() {
+
+    if (currentStep < 2) {
+        changeStep(1);
+        return;
+    }
+
+    if (!validateStep(2)) {
+        return;
+    }
+
+    const newUser = {
+        name: document.getElementById("sName").value.trim(),
+        email: document.getElementById("sEmail").value.trim().toLowerCase(),
+        phone: document.getElementById("sPhone").value.trim(),
+        password: document.getElementById("sPassword").value
+    };
+
+    nextBtn.disabled = true;
+    nextBtn.textContent = "Creating account...";
+
+    fetch("/api/signup", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newUser)
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        if (data.success) {
+
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            document.getElementById("successOverlay").classList.add("show");
+
+            createConfetti();
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 2500);
+
+        } else {
+
+            showError("sEmail", "sEmailError", data.message || "Signup failed");
+
+            currentStep = 1;
+            steps[2].classList.remove("active");
+            steps[1].classList.add("active");
+
+            dots[2].classList.remove("active");
+            dots[1].classList.add("active");
+
+            progressFill.style.width = "50%";
+
+            backBtn.classList.remove("hidden");
+            nextBtn.textContent = "Continue →";
+            nextBtn.disabled = false;
+
+        }
+
+    })
+
+    .catch(() => {
+
+        alert("Unable to connect to the server. Please make sure the server is running.");
+
+        nextBtn.disabled = false;
+        nextBtn.textContent = "Create Account 🎂";
+
+    });
+
+});
+
+</script>
+
 </body>
 </html>
