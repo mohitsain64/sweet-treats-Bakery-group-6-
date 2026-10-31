@@ -36,24 +36,57 @@
     </nav>
 
     <div class="cart-container">
-        <h2>Your Wishlist</h2>
-        <br>
-        <div id="wishItems"></div>
-    </div>
+    <h2>Your Wishlist</h2>
+
+    <p id="wishlistTotal" aria-live="polite"></p>
+
+    <button
+        id="clearWishlistBtn"
+        class="remove-btn"
+        type="button"
+        onclick="clearWishlist()"
+        hidden>
+        Clear All Wishlist
+    </button>
+
+    <br>
+    <div id="wishItems"></div>
+</div>
 
     <script src="script.js"></script>
     <script>
         const wishBox = document.getElementById("wishItems");
 
+        function clearWishlist() {
+    const confirmed = confirm(
+        "Are you sure you want to clear your entire wishlist?"
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    saveWishlist([]);
+    showWishlist();
+}
+
         // Wishlist screen pe dikhana
         function showWishlist() {
-            const list = getWishlist();
-            wishBox.innerHTML = "";
+    const list = getWishlist();
+    wishBox.innerHTML = "";
 
-            if (list.length === 0) {
-                wishBox.innerHTML = "<p>Your wishlist is empty 💔</p>";
-                return;
-            }
+    // Show total wishlist items
+    document.getElementById("wishlistTotal").textContent =
+        `Total Saved Items: ${list.length}`;
+
+    // Show Clear All button only when items exist
+    document.getElementById("clearWishlistBtn").hidden =
+        list.length === 0;
+
+    if (list.length === 0) {
+        wishBox.innerHTML = "<p>Your wishlist is empty 💔</p>";
+        return;
+    }
 
             list.forEach(function (item, index) {
                 wishBox.innerHTML += `
