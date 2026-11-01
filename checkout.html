@@ -9,6 +9,7 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="checkout.css">
 </head>
 
 <body>
@@ -86,17 +87,146 @@
                     <small class="error" id="dateError"></small>
                 </div>
 
-                <div class="form-group">
-                    <label>Payment Method</label>
-                    <div class="pay-options">
-                        <label><input type="radio" name="payment" value="UPI"> UPI</label>
-                        <label><input type="radio" name="payment" value="Card"> Card</label>
-                        <label><input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery</label>
+                <!-- ===== Payment Method ===== -->
+                <div class="pay-section">
+                    <h3 class="pay-title">Payment Method</h3>
+
+                    <div class="pay-layout">
+
+                        <!-- left: method list -->
+                        <div class="pay-methods">
+                            <button type="button" class="pay-method active" data-method="UPI" data-panel="panelUpi">
+                                <span class="pay-icon">📱</span>
+                                <span><strong>UPI</strong><small>Pay by any UPI app</small></span>
+                            </button>
+                            <button type="button" class="pay-method" data-method="Card" data-panel="panelCard">
+                                <span class="pay-icon">💳</span>
+                                <span><strong>Credit / Debit Card</strong><small>Visa, Mastercard, RuPay</small></span>
+                            </button>
+                            <button type="button" class="pay-method" data-method="Net Banking" data-panel="panelBank">
+                                <span class="pay-icon">🏦</span>
+                                <span><strong>Net Banking</strong><small>All major banks</small></span>
+                            </button>
+                            <button type="button" class="pay-method" data-method="Gift Card" data-panel="panelGift">
+                                <span class="pay-icon">🎁</span>
+                                <span><strong>Have a Gift Card?</strong><small>Use your voucher</small></span>
+                            </button>
+                            <button type="button" class="pay-method" data-method="Cash on Delivery"
+                                data-panel="panelCod">
+                                <span class="pay-icon">💵</span>
+                                <span><strong>Cash on Delivery</strong><small>Pay when cake arrives</small></span>
+                            </button>
+                        </div>
+
+                        <!-- right: selected method ki details -->
+                        <div class="pay-details">
+
+                            <!-- UPI -->
+                            <div class="pay-panel" id="panelUpi">
+                                <div class="pay-card qr-card">
+                                    <h4>Scan QR and Pay</h4>
+                                    <p class="qr-amount-label">AMOUNT</p>
+                                    <p class="qr-amount pay-amount">₹0</p>
+                                    <img src="upi-qr.png" alt="UPI QR code" class="qr-img" id="qrImg">
+                                    <p class="upi-apps">
+                                        <span class="app-chip">GPay</span>
+                                        <span class="app-chip">PhonePe</span>
+                                        <span class="app-chip">Paytm</span>
+                                    </p>
+                                    <p class="qr-small">or any other UPI app</p>
+                                    <p class="qr-timer">QR valid for <strong id="qrTime">05:00</strong> minutes</p>
+                                    <div class="qr-bar"><div class="qr-bar-fill" id="qrBar"></div></div>
+                                    <button type="button" class="qr-refresh" id="qrRefresh">Refresh QR</button>
+                                </div>
+
+                                <div class="pay-card">
+                                    <div class="form-group">
+                                        <label for="upiId">Or pay using UPI ID (optional)</label>
+                                        <input type="text" id="upiId" placeholder="example@okbank">
+                                        <small class="error" id="upiIdError"></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card -->
+                            <div class="pay-panel" id="panelCard" style="display: none;">
+                                <div class="pay-card">
+                                    <div class="form-group">
+                                        <label for="cardNumber">Card Number</label>
+                                        <input type="text" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX"
+                                            maxlength="19">
+                                        <small class="error" id="cardNumberError"></small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cardName">Name on Card</label>
+                                        <input type="text" id="cardName" placeholder="Name on card">
+                                        <small class="error" id="cardNameError"></small>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="cardExpiry">Valid Thru</label>
+                                            <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+                                            <small class="error" id="cardExpiryError"></small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cardCvv">CVV</label>
+                                            <input type="password" id="cardCvv" placeholder="CVV" maxlength="3">
+                                            <small class="error" id="cardCvvError"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="pay-note"><strong>Note:</strong> Please ensure your card can be used for online
+                                    transactions.</p>
+                            </div>
+
+                            <!-- Net Banking -->
+                            <div class="pay-panel" id="panelBank" style="display: none;">
+                                <div class="pay-card">
+                                    <label class="bank-row"><input type="radio" name="bank" value="State Bank of India"> State Bank of India</label>
+                                    <label class="bank-row"><input type="radio" name="bank" value="HDFC Bank"> HDFC Bank</label>
+                                    <label class="bank-row"><input type="radio" name="bank" value="ICICI Bank"> ICICI Bank</label>
+                                    <label class="bank-row"><input type="radio" name="bank" value="Kotak Mahindra Bank"> Kotak Mahindra Bank</label>
+                                    <label class="bank-row"><input type="radio" name="bank" value="Axis Bank"> Axis Bank</label>
+                                    <label class="bank-row"><input type="radio" name="bank" value="Punjab National Bank"> Punjab National Bank</label>
+                                    <label class="bank-row"><input type="radio" name="bank" value="Bank of Baroda"> Bank of Baroda</label>
+                                    <small class="error" id="bankError"></small>
+                                </div>
+                            </div>
+
+                            <!-- Gift Card -->
+                            <div class="pay-panel" id="panelGift" style="display: none;">
+                                <div class="pay-card">
+                                    <p class="gift-info">Enter the voucher number and PIN from your Sweet Treats gift card</p>
+                                    <div class="form-group">
+                                        <label for="giftNumber">Voucher Number</label>
+                                        <input type="text" id="giftNumber" placeholder="Enter 16 digit voucher number"
+                                            maxlength="16">
+                                        <small class="error" id="giftNumberError"></small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="giftPin">Voucher PIN</label>
+                                        <input type="password" id="giftPin" placeholder="Enter 6 digit PIN"
+                                            maxlength="6">
+                                        <small class="error" id="giftPinError"></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cash on Delivery -->
+                            <div class="pay-panel" id="panelCod" style="display: none;">
+                                <div class="pay-card cod-card">
+                                    <span class="cod-icon">💵</span>
+                                    <h4>Pay on Delivery</h4>
+                                    <p>Pay <strong class="pay-amount">₹0</strong> in cash when your order arrives.</p>
+                                    <p class="qr-small">Please keep the exact amount ready.</p>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <small class="error" id="paymentError"></small>
                 </div>
 
-                <button type="submit" class="place-order-btn">Place Order</button>
+                <button type="submit" class="place-order-btn" id="placeOrderBtn">Place Order</button>
             </form>
         </div>
 
@@ -104,6 +234,10 @@
         <div class="box" style="height: fit-content;">
             <h3>Order Summary</h3>
             <div id="summaryItems"></div>
+            <div class="summary-item pay-summary-line">
+                <span>Payment</span>
+                <span id="summaryPay">UPI</span>
+            </div>
             <div class="summary-total">
                 <span>Total</span>
                 <span id="summaryTotal">₹0</span>
@@ -187,7 +321,6 @@
             const city = document.getElementById("city").value.trim();
             const pincode = document.getElementById("pincode").value.trim();
             const date = document.getElementById("deliveryDate").value;
-            const payment = document.querySelector('input[name="payment"]:checked');
 
             // Name: sirf letters aur space, kam se kam 3 characters
             if (name === "") {
@@ -248,16 +381,221 @@
                 clearError("deliveryDate", "dateError");
             }
 
-            // Payment
-            if (payment === null) {
-                document.getElementById("paymentError").textContent = "Select a payment method";
+            // Payment (selected method ke hisaab se)
+            if (validatePayment() === false) {
                 isValid = false;
-            } else {
-                document.getElementById("paymentError").textContent = "";
             }
 
             return isValid;
         }
+
+        // ---------- 5b. Payment method ----------
+        let selectedPayment = "UPI";     // abhi kaun sa method select hai
+
+        const methodButtons = document.querySelectorAll(".pay-method");
+        const payPanels = document.querySelectorAll(".pay-panel");
+
+        // Sab jagah total amount dikhana
+        document.querySelectorAll(".pay-amount").forEach(function (box) {
+            box.textContent = "₹" + total;
+        });
+
+        // Place Order button ka text method ke hisaab se badalna
+        function updatePayButton() {
+            const btn = document.getElementById("placeOrderBtn");
+            if (selectedPayment === "Cash on Delivery") {
+                btn.textContent = "Place Order";
+            } else {
+                btn.textContent = "Pay ₹" + total + " & Place Order";
+            }
+            document.getElementById("summaryPay").textContent = selectedPayment;
+        }
+
+        // Method pe click hone par
+        methodButtons.forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                // sab se active hatao
+                methodButtons.forEach(function (b) {
+                    b.classList.remove("active");
+                });
+                btn.classList.add("active");
+
+                // sab panels chhupao, selected wala dikhao
+                payPanels.forEach(function (panel) {
+                    panel.style.display = "none";
+                });
+                document.getElementById(btn.getAttribute("data-panel")).style.display = "block";
+
+                selectedPayment = btn.getAttribute("data-method");
+                updatePayButton();
+            });
+        });
+
+        // ---- QR timer (5 minute) ----
+        let qrSeconds = 300;
+        let qrTimer = null;
+
+        function updateQrTimer() {
+            const min = Math.floor(qrSeconds / 60);
+            const sec = qrSeconds % 60;
+            document.getElementById("qrTime").textContent =
+                "0" + min + ":" + (sec < 10 ? "0" : "") + sec;
+            document.getElementById("qrBar").style.width = (qrSeconds / 300 * 100) + "%";
+
+            if (qrSeconds <= 0) {
+                clearInterval(qrTimer);
+                document.getElementById("qrImg").style.opacity = "0.2";
+                document.getElementById("qrRefresh").style.display = "inline-block";
+            }
+        }
+
+        function startQrTimer() {
+            clearInterval(qrTimer);
+            qrSeconds = 300;
+            document.getElementById("qrImg").style.opacity = "1";
+            document.getElementById("qrRefresh").style.display = "none";
+            updateQrTimer();
+            qrTimer = setInterval(function () {
+                qrSeconds = qrSeconds - 1;
+                updateQrTimer();
+            }, 1000);
+        }
+
+        document.getElementById("qrRefresh").addEventListener("click", startQrTimer);
+        startQrTimer();
+
+        // ---- Card number me khud space lagana (1234 5678 ...) ----
+        document.getElementById("cardNumber").addEventListener("input", function () {
+            const digits = this.value.replace(/[^0-9]/g, "").slice(0, 16);
+            this.value = digits.replace(/(.{4})/g, "$1 ").trim();
+        });
+
+        // ---- Expiry me khud "/" lagana (MMYY -> MM/YY) ----
+        document.getElementById("cardExpiry").addEventListener("input", function () {
+            const digits = this.value.replace(/[^0-9]/g, "").slice(0, 4);
+            if (digits.length > 2) {
+                this.value = digits.slice(0, 2) + "/" + digits.slice(2);
+            } else {
+                this.value = digits;
+            }
+        });
+
+        // ---- Payment validation (sirf selected method check hoga) ----
+        function validatePayment() {
+            let ok = true;
+
+            if (selectedPayment === "UPI") {
+                // UPI ID optional hai, par agar likhi hai to sahi honi chahiye
+                const upiId = document.getElementById("upiId").value.trim();
+                if (upiId !== "" && !/^[A-Za-z0-9.\-_]{2,}@[A-Za-z]{2,}$/.test(upiId)) {
+                    showError("upiId", "upiIdError", "Enter a valid UPI ID (example@bank)");
+                    ok = false;
+                } else {
+                    clearError("upiId", "upiIdError");
+                }
+            }
+
+            if (selectedPayment === "Card") {
+                const number = document.getElementById("cardNumber").value.replace(/ /g, "");
+                const cname = document.getElementById("cardName").value.trim();
+                const expiry = document.getElementById("cardExpiry").value.trim();
+                const cvv = document.getElementById("cardCvv").value.trim();
+
+                if (!/^[0-9]{16}$/.test(number)) {
+                    showError("cardNumber", "cardNumberError", "Enter a valid 16 digit card number");
+                    ok = false;
+                } else {
+                    clearError("cardNumber", "cardNumberError");
+                }
+
+                if (!/^[A-Za-z ]{3,}$/.test(cname)) {
+                    showError("cardName", "cardNameError", "Enter name as on card");
+                    ok = false;
+                } else {
+                    clearError("cardName", "cardNameError");
+                }
+
+                // Expiry: MM/YY aur aaj se pehle ka na ho
+                let expiryOk = /^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expiry);
+                if (expiryOk) {
+                    const month = Number(expiry.slice(0, 2));
+                    const year = Number(expiry.slice(3, 5));
+                    const now = new Date();
+                    const thisYear = now.getFullYear() % 100;
+                    const thisMonth = now.getMonth() + 1;
+                    if (year < thisYear || (year === thisYear && month < thisMonth)) {
+                        expiryOk = false;
+                    }
+                }
+                if (!expiryOk) {
+                    showError("cardExpiry", "cardExpiryError", "Enter a valid expiry (MM/YY)");
+                    ok = false;
+                } else {
+                    clearError("cardExpiry", "cardExpiryError");
+                }
+
+                if (!/^[0-9]{3}$/.test(cvv)) {
+                    showError("cardCvv", "cardCvvError", "Enter 3 digit CVV");
+                    ok = false;
+                } else {
+                    clearError("cardCvv", "cardCvvError");
+                }
+            }
+
+            if (selectedPayment === "Net Banking") {
+                const bank = document.querySelector('input[name="bank"]:checked');
+                if (bank === null) {
+                    document.getElementById("bankError").textContent = "Please select a bank";
+                    ok = false;
+                } else {
+                    document.getElementById("bankError").textContent = "";
+                }
+            }
+
+            if (selectedPayment === "Gift Card") {
+                const number = document.getElementById("giftNumber").value.trim();
+                const pin = document.getElementById("giftPin").value.trim();
+
+                if (!/^[0-9]{16}$/.test(number)) {
+                    showError("giftNumber", "giftNumberError", "Enter a valid 16 digit voucher number");
+                    ok = false;
+                } else {
+                    clearError("giftNumber", "giftNumberError");
+                }
+
+                if (!/^[0-9]{6}$/.test(pin)) {
+                    showError("giftPin", "giftPinError", "Enter a valid 6 digit PIN");
+                    ok = false;
+                } else {
+                    clearError("giftPin", "giftPinError");
+                }
+            }
+
+            return ok;
+        }
+
+        // ---- Order me save karne ke liye payment ki chhoti detail ----
+        // (card number / CVV / PIN kabhi save nahi karte, sirf last 4 digit)
+        function getPaymentDetail() {
+            if (selectedPayment === "UPI") {
+                const upiId = document.getElementById("upiId").value.trim();
+                return upiId !== "" ? "UPI ID: " + upiId : "QR Scan";
+            }
+            if (selectedPayment === "Card") {
+                const number = document.getElementById("cardNumber").value.replace(/ /g, "");
+                return "Card ending " + number.slice(-4);
+            }
+            if (selectedPayment === "Net Banking") {
+                return document.querySelector('input[name="bank"]:checked').value;
+            }
+            if (selectedPayment === "Gift Card") {
+                const number = document.getElementById("giftNumber").value.trim();
+                return "Gift card ending " + number.slice(-4);
+            }
+            return "Pay on delivery";
+        }
+
+        updatePayButton();
 
         // ---------- 6. Form submit hone par ----------
         const form = document.getElementById("checkoutForm");
@@ -280,7 +618,8 @@
                     city: document.getElementById("city").value.trim(),
                     pincode: document.getElementById("pincode").value.trim(),
                     deliveryDate: document.getElementById("deliveryDate").value,
-                    payment: document.querySelector('input[name="payment"]:checked').value,
+                    payment: selectedPayment,
+                    paymentDetail: getPaymentDetail(),
                     items: items,
                     total: total,
                     orderDate: new Date().toLocaleString()
