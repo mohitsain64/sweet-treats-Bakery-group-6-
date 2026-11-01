@@ -1,142 +1,294 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sweet Treats</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>Login | Sweet Treats Bakery</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="auth.css">
 </head>
-<body>
-    <div class="auth-page">
-        <div class="auth-box">
 
-            <!-- LEFT: Banner -->
-            <div class="auth-banner">
-                <a href="index.html" class="auth-logo">
-                    <span class="logo-title">Sweet Treats</span>
-                    <span class="logo-sub">BAKERY</span>
-                </a>
+<body class="login-page">
 
-                <div>
-                    <h2>Fresh bakes, <span>delivered with love.</span></h2>
-                    <ul class="benefits">
-                        <li><b>🎂</b> 50+ handcrafted flavours</li>
-                        <li><b>⚡</b> Express delivery in 2 hours</li>
-                        <li><b>♡</b> Save your favourites</li>
-                        <li><b>📦</b> Track all your orders</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- RIGHT: Form -->
-            <div class="auth-form-side">
-                <a href="index.html" class="auth-skip">Skip for now →</a>
-
-                <h3>Welcome Back 👋</h3>
-                <p class="auth-sub">Log in to continue to your account.</p>
-
-                <form id="loginForm" class="auth-form" novalidate>
-                    <div class="form-group">
-                        <label for="lEmail">Email Address</label>
-                        <div class="input-wrap">
-                            <span class="icon">✉️</span>
-                            <input type="text" id="lEmail" placeholder="you@example.com">
-                        </div>
-                        <small class="error" id="lEmailError"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="lPassword">Password</label>
-                        <div class="input-wrap">
-                            <span class="icon">🔒</span>
-                            <input type="password" id="lPassword" class="pass-input" placeholder="Enter your password">
-                            <button type="button" class="eye-btn" onclick="togglePass('lPassword', this)">👁️</button>
-                        </div>
-                        <small class="error" id="lPasswordError"></small>
-                    </div>
-
-                    <button type="submit" class="auth-btn">Login</button>
-                </form>
-
-                <p class="auth-bottom">New to Sweet Treats? <a href="signup.html">Create an account</a></p>
-            </div>
-        </div>
+    <div class="login-background">
+        <span class="login-float">🧁</span>
+        <span class="login-float">🍰</span>
+        <span class="login-float">🍓</span>
+        <span class="login-float">🍩</span>
+        <span class="login-float">🍪</span>
+        <span class="login-float">🧁</span>
     </div>
 
+    <main class="login-wrapper">
+
+        <section class="login-card">
+
+            <!-- LEFT SIDE -->
+            <div class="login-visual">
+
+                <a href="index.html" class="login-brand">
+                    <span class="login-brand-icon">🧁</span>
+                    <span>
+                        <strong>Sweet Treats</strong>
+                        <small>BAKERY</small>
+                    </span>
+                </a>
+
+                <div class="login-visual-content">
+                    <span class="login-tag">MADE WITH LOVE ♡</span>
+
+                    <h1>
+                        Your daily dose
+                        of <em>happiness.</em>
+                    </h1>
+
+                    <p>
+                        Freshly baked happiness is waiting for you.
+                        Log in and discover your favourite sweet treats.
+                    </p>
+
+                    <div class="login-cookie">
+                        <span>🍰</span>
+                        <div>
+                            <strong>A little sweetness goes a long way.</strong>
+                            <small>Your favourite treats are just a click away.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="login-visual-footer">
+                    FRESHLY BAKED · ALWAYS HEARTMADE
+                </div>
+
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <div class="login-form-section">
+
+                <a href="index.html" class="login-skip">
+                    Skip for now 
+                </a>
+                <div class="login-form-content">
+
+                    
+
+                    <p class="login-eyebrow">WELCOME BACK</p>
+
+                    <h2>Hey, sweet tooth!</h2>
+
+                    <p class="login-description">
+                        Your favourite goodies missed you.
+                        Sign in to continue.
+                    </p>
+
+                    <form id="loginForm" class="login-form" novalidate>
+
+                        <div class="login-field">
+                            <label for="loginEmail">Email Address</label>
+
+                            <div class="login-input-box">
+                                <span>✉</span>
+                                <input
+                                    type="email"
+                                    id="loginEmail"
+                                    name="email"
+                                    placeholder="you@example.com"
+                                    autocomplete="email"
+                                    required
+                                >
+                            </div>
+
+                            <small class="login-error" id="loginEmailError"></small>
+                        </div>
+
+                        <div class="login-field">
+                            <div class="login-label-row">
+                                <label for="loginPassword">Password</label>
+                            </div>
+
+                            <div class="login-input-box">
+                                <span>🔒</span>
+
+                                <input
+                                    type="password"
+                                    id="loginPassword"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    autocomplete="current-password"
+                                    required
+                                >
+
+                                <button
+                                    type="button"
+                                    class="login-eye"
+                                    id="loginEye"
+                                    aria-label="Show password"
+                                >👁</button>
+                            </div>
+
+                            <small class="login-error" id="loginPasswordError"></small>
+                        </div>
+
+                        <div class="login-options">
+                            <label class="login-remember">
+                                <input type="checkbox" id="rememberMe">
+                                <span>Remember me</span>
+                            </label>
+                        </div>
+
+                        <div
+                            class="login-message"
+                            id="loginMessage"
+                            role="status"
+                            aria-live="polite"
+                        ></div>
+
+                        <button type="submit" class="login-submit" id="loginSubmit">
+                            <span>Let's Get You In</span>
+                            <span class="login-arrow">→</span>
+                        </button>
+
+                    </form>
+
+                    <div class="login-divider">
+                        <span>MADE FOR SWEET MOMENTS</span>
+                    </div>
+
+                    <p class="login-signup-text">
+                        New to our bakery?
+                        <a href="signup.html">Create an account ↗</a>
+                    </p>
+
+                    <p class="login-bottom-note">
+                        ♡ Baked with love, served with happiness.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
     <script>
-        // ---------- Password show / hide ----------
-        function togglePass(inputId, btn) {
-            const input = document.getElementById(inputId);
-            if (input.type === "password") {
-                input.type = "text";
-                btn.textContent = "🙈";
-            } else {
-                input.type = "password";
-                btn.textContent = "👁️";
-            }
-        }
+        // Show / hide password
+        const loginPassword = document.getElementById("loginPassword");
+        const loginEye = document.getElementById("loginEye");
 
-        function showError(inputId, errorId, message) {
-            document.getElementById(errorId).textContent = message;
-            document.getElementById(inputId).classList.add("invalid");
-        }
+        loginEye.addEventListener("click", function () {
+            const isHidden = loginPassword.type === "password";
 
-        function clearError(inputId, errorId) {
-            document.getElementById(errorId).textContent = "";
-            document.getElementById(inputId).classList.remove("invalid");
-        }
+            loginPassword.type = isHidden ? "text" : "password";
+            loginEye.textContent = isHidden ? "🙈" : "👁";
+            loginEye.setAttribute(
+                "aria-label",
+                isHidden ? "Hide password" : "Show password"
+            );
+        });
 
-        // Login ke baad kaha jana hai (URL me ?next=cart.html ho to wahi, warna home)
-        const params = new URLSearchParams(window.location.search);
-        const nextPage = params.get("next") || "index.html";
+        // Clear errors while typing
+        document.getElementById("loginEmail").addEventListener("input", function () {
+            document.getElementById("loginEmailError").textContent = "";
+            this.classList.remove("login-invalid");
+        });
 
-        document.getElementById("loginForm").addEventListener("submit", function (event) {
+        loginPassword.addEventListener("input", function () {
+            document.getElementById("loginPasswordError").textContent = "";
+            this.classList.remove("login-invalid");
+        });
+
+        // Login form
+        document.getElementById("loginForm").addEventListener("submit", async function (event) {
             event.preventDefault();
 
-            const email = document.getElementById("lEmail").value.trim().toLowerCase();
-            const password = document.getElementById("lPassword").value;
-            let isValid = true;
+            const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+            const password = loginPassword.value;
+            const message = document.getElementById("loginMessage");
+            const submitButton = document.getElementById("loginSubmit");
+
+            const emailError = document.getElementById("loginEmailError");
+            const passwordError = document.getElementById("loginPasswordError");
+
+            emailError.textContent = "";
+            passwordError.textContent = "";
+            message.textContent = "";
+            message.className = "login-message";
+
+            document.getElementById("loginEmail").classList.remove("login-invalid");
+            loginPassword.classList.remove("login-invalid");
+
+            let valid = true;
 
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                showError("lEmail", "lEmailError", "Enter a valid email");
-                isValid = false;
-            } else {
-                clearError("lEmail", "lEmailError");
+                emailError.textContent = "Please enter a valid email address.";
+                document.getElementById("loginEmail").classList.add("login-invalid");
+                valid = false;
             }
 
-            if (password === "") {
-                showError("lPassword", "lPasswordError", "Password is required");
-                isValid = false;
-            } else {
-                clearError("lPassword", "lPasswordError");
+            if (!password) {
+                passwordError.textContent = "Please enter your password.";
+                loginPassword.classList.add("login-invalid");
+                valid = false;
             }
 
-            if (isValid === false) {
-                return;
-            }
+            if (!valid) return;
 
-            fetch("/api/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: email, password: password })
-            })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                if (data.success) {
-                    localStorage.setItem("user", JSON.stringify(data.user));
-                    window.location.href = nextPage;
-                } else {
-                    showError("lPassword", "lPasswordError", data.message);
+            submitButton.disabled = true;
+            submitButton.querySelector("span").textContent = "Signing you in...";
+
+            try {
+                const response = await fetch("/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    message.textContent = data.message || "Incorrect email or password.";
+                    message.classList.add("login-message-error");
+                    return;
                 }
-            })
-            .catch(function () {
-                alert("Unable to connect to the server. Please make sure the server is running.");
-            });
+
+                if (data.user) {
+                    localStorage.setItem("user", JSON.stringify(data.user));
+                }
+
+                message.textContent = "Welcome back! Redirecting...";
+                message.classList.add("login-message-success");
+
+                submitButton.querySelector("span").textContent = "Welcome Back! ✓";
+
+                setTimeout(function () {
+                    window.location.href = "index.html";
+                }, 900);
+
+            } catch (error) {
+                message.textContent =
+                    "Unable to connect. Please check that the server is running.";
+                message.classList.add("login-message-error");
+
+            } finally {
+                submitButton.disabled = false;
+
+                if (!submitButton.querySelector("span").textContent.includes("Welcome Back!")) {
+                    submitButton.querySelector("span").textContent = "Let's Get You In";
+                }
+            }
         });
     </script>
+
 </body>
 </html>
+```
