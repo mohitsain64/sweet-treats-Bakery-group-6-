@@ -1,0 +1,262 @@
+{
+  "site": {
+    "title": "Sweet Treats Bakery",
+    "brand": { "title": "Sweet Treats", "subtitle": "Bakery" },
+    "navLinks": [
+      { "label": "Home", "href": "index.html" },
+      { "label": "Cakes", "href": "menu.html" },
+      { "label": "Pastries", "href": "menu.html?category=pastries" },
+      { "label": "About Us", "href": "index.html#about-us" },
+      { "label": "Contact", "href": "contact.html" }
+    ],
+    "hero": {
+      "heading": "Handcrafted Cakes & Pastries",
+      "headingSpan": "Delivered to Your Doorstep",
+      "text": "Every bite tells a story of passion, premium ingredients, and decades of artisanal baking tradition. Order online and receive a freshly baked masterpiece at your door.",
+      "buttons": [
+        { "label": "Explore Menu →", "href": "menu.html" },
+        { "label": "Custom Order", "href": "#custom-orders" }
+      ],
+      "stats": [
+        { "value": "50+", "label": "Flavors" },
+        { "value": "4.9★", "label": "Rated" },
+        { "value": "10K+", "label": "Happy Customers" },
+        { "value": "2 Hr", "label": "Express Delivery" }
+      ],
+      "slides": [
+        { "name": "Dark Chocolate Drip", "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80", "alt": "Dark Chocolate Drip Cake" },
+        { "name": "Red Velvet Dream", "image": "https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=800&q=80", "alt": "Red Velvet Dream Cake" },
+        { "name": "Belgian Chocolate Truffle", "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80", "alt": "Belgian Chocolate Truffle" },
+        { "name": "Mixed Berry Tart", "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80", "alt": "Mixed Berry Tart" }
+      ]
+    },
+    "trustStrip": [
+      { "icon": "🎂", "title": "Custom Cakes", "text": "Made to order for every occasion" },
+      { "icon": "🥐", "title": "Freshly Baked", "text": "Prepared every morning, never stored" },
+      { "icon": "🚚", "title": "Express Delivery", "text": "Delivered to your doorstep within 2 hours" },
+      { "icon": "🍫", "title": "Premium Ingredients", "text": "Real cream and real chocolate only" }
+    ],
+    "categories": [
+      { "id": "special", "label": "Special Cakes", "default": true },
+      { "id": "chocolate", "label": "Chocolate" },
+      { "id": "tarts", "label": "Fruit Tarts" },
+      { "id": "eggless", "label": "Eggless Specials" },
+      { "id": "pastries", "label": "Pastries" },
+      { "id": "cupcakes", "label": "Cupcakes" },
+      { "id": "cheesecakes", "label": "Cheesecakes" }
+    ],
+    "productsSection": {
+      "heading": "Our Signature Delights",
+      "subheading": "Handpicked favorites loved by our community"
+    },
+    "footer": {
+      "about": "Artisanal bakes crafted with love, premium ingredients, and years of mastery — delivered fresh to your doorstep across India since 2012.",
+      "email": "sweettreats@gmail.com",
+      "address": "BML Munjal University, Sweet Treats bakery, near gate away building",
+      "phones": ["+91 6667778889", "+91 9998887776"],
+      "acceptedPayments": ["UPI", "Visa", "MC", "RuPay"],
+      "quickLinks": [
+        { "label": "Home", "href": "#home" },
+        { "label": "All Cakes", "href": "#products" },
+        { "label": "Pastries & Tarts", "href": "#products" },
+        { "label": "Custom Orders", "href": "#custom-orders" },
+        { "label": "Festive Boxes", "href": "#festive-boxes" },
+        { "label": "About Us", "href": "#about-us" }
+      ],
+      "customerCare": [
+        { "label": "Track Order", "href": "info.html#track-order" },
+        { "label": "Return Policy", "href": "info.html#returns" },
+        { "label": "FAQ", "href": "info.html#faq" },
+        { "label": "Delivery Info", "href": "info.html#delivery" },
+        { "label": "Bulk Orders", "href": "contact.html" }
+      ],
+      "legalLinks": [
+        { "label": "Privacy Policy", "href": "info.html#privacy" },
+        { "label": "Terms of Service", "href": "info.html#terms" }
+      ],
+      "copyright": "© 2026 Sweet Treats Bakery Pvt. Ltd. All rights reserved."
+    }
+  },
+  "products": [
+    {
+      "id": 1, "name": "Red Velvet Dream Cake", "categories": ["eggless", "special"], "tag": "Eggless",
+      "image": "https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=500&q=80",
+      "weights": ["0.5 kg", "1 kg", "1.5 kg"], "defaultWeight": "1 kg",
+      "rating": 4.9, "reviews": 384, "price": 1099, "oldPrice": 1399, "discount": "21% off"
+    },
+    {
+      "id": 2, "name": "Classic New York Cheesecake", "categories": ["cheesecakes", "special"], "tag": "Bestseller",
+      "image": "https://img.taste.com.au/O8JC4F3Q/taste/2016/11/new-york-cheesecake-40742-1.jpeg",
+      "weights": ["500g", "1 kg"], "defaultWeight": "500g",
+      "rating": 4.8, "reviews": 229, "price": 999, "oldPrice": 1249, "discount": "20% off"
+    },
+    {
+      "id": 3, "name": "Tiramisu Slice Pastry", "categories": ["pastries", "special"], "tag": "Pastry",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkEA8mTOetvn7sYMTI682VG0tGq4nbeNV4Y90mu7Z9-TCIfP24R3iFF_8&s=10",
+      "weights": ["1 Piece", "Box of 2"], "defaultWeight": "1 Piece",
+      "rating": 4.9, "reviews": 192, "price": 249, "oldPrice": null, "discount": null
+    },
+    {
+      "id": 4, "name": "Assorted Velvet Cupcakes", "categories": ["cupcakes", "special"], "tag": "Cupcakes",
+      "image": "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&w=500&q=80",
+      "weights": ["Box of 4", "Box of 6"], "defaultWeight": "Box of 6",
+      "rating": 4.7, "reviews": 143, "price": 499, "oldPrice": 649, "discount": "23% off"
+    },
+    {
+      "id": 5, "name": "Butterscotch Caramel Cake", "categories": ["eggless", "special"], "tag": "Eggless",
+      "image": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=80",
+      "weights": ["0.5 kg", "1 kg"], "defaultWeight": "1 kg",
+      "rating": 4.8, "reviews": 210, "price": 899, "oldPrice": 1099, "discount": "18% off"
+    },
+    {
+      "id": 6, "name": "Blueberry Glaze Cheesecake", "categories": ["cheesecakes", "special"], "tag": "Special",
+      "image": "https://addictedtodates.com/wp-content/uploads/2022/04/vegan-blueberry-cheesecake-4.jpg",
+      "weights": ["6 Inch", "8 Inch"], "defaultWeight": "6 Inch",
+      "rating": 4.9, "reviews": 315, "price": 1149, "oldPrice": 1399, "discount": "18% off"
+    },
+    {
+      "id": 7, "name": "Pineapple Gateau Cake", "categories": ["tarts", "special"], "tag": "Bestseller",
+      "image": "https://images.unsplash.com/photo-1621303837174-89787a7d4729?auto=format&fit=crop&w=500&q=80",
+      "weights": ["0.5 kg", "1 kg"], "defaultWeight": "1 kg",
+      "rating": 4.7, "reviews": 188, "price": 799, "oldPrice": 999, "discount": "20% off"
+    },
+    {
+      "id": 8, "name": "French Almond Croissant", "categories": ["pastries", "special"], "tag": "Limited",
+      "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80",
+      "weights": ["1 Pc", "Box of 3"], "defaultWeight": "1 Pc",
+      "rating": 4.9, "reviews": 94, "price": 229, "oldPrice": null, "discount": null
+    },
+    {
+      "id": 9, "name": "Dark Chocolate Drip Cake", "categories": ["chocolate", "special"], "tag": "Bestseller",
+      "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80",
+      "weights": ["0.5 kg", "1 kg", "1.5 kg"], "defaultWeight": "1 kg",
+      "rating": 4.9, "reviews": 312, "price": 1199, "oldPrice": 1499, "discount": "20% off"
+    },
+    {
+      "id": 10, "name": "Strawberry Chiffon Cake", "categories": ["tarts", "special"], "tag": null,
+      "image": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=500&q=80",
+      "weights": ["0.5 kg", "1 kg"], "defaultWeight": "0.5 kg",
+      "rating": 4.8, "reviews": 204, "price": 899, "oldPrice": null, "discount": null
+    },
+    {
+      "id": 11, "name": "Belgian Chocolate Truffle", "categories": ["chocolate", "special"], "tag": "Bestseller",
+      "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=500&q=80",
+      "weights": ["0.5 kg", "1 kg", "2 kg"], "defaultWeight": "1 kg",
+      "rating": 4.9, "reviews": 478, "price": 1299, "oldPrice": 1599, "discount": "19% off"
+    },
+    {
+      "id": 12, "name": "Mixed Berry Tart", "categories": ["tarts", "special"], "tag": "Seasonal",
+      "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80",
+      "weights": ["6 Inch", "8 Inch"], "defaultWeight": "6 Inch",
+      "rating": 4.7, "reviews": 156, "price": 599, "oldPrice": null, "discount": null
+    },
+    {
+      "id": 13, "name": "Eggless Chocolate Fudge Cake", "categories": ["eggless"], "tag": null,
+      "image": "https://incredibleart.co.in/wp-content/uploads/2026/04/eggless-chocolate-cake-recipe.png",
+      "weights": ["0.5 kg", "1 kg"], "defaultWeight": "1 kg",
+      "rating": 4.7, "reviews": 162, "price": 949, "oldPrice": 1199, "discount": "20% off"
+    },
+    {
+      "id": 14, "name": "Eggless Vanilla Bean Cake", "categories": ["eggless"], "tag": null,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZG89rzvJdM_m4dtthlmWO9cPuf7KIR-R4-AR0sVCh4bJxzfZ8K58U0LuZ&s=10",
+      "weights": ["0.5 kg", "1 kg"], "defaultWeight": "0.5 kg",
+      "rating": 4.6, "reviews": 98, "price": 749, "oldPrice": null, "discount": null
+    },
+    {
+      "id": 15, "name": "Eggless Black Forest Cake", "categories": ["eggless"], "tag": "Eggless",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5E41BFgcHUjYW14256zxtb5tP2ppBye7mluK5O0i3CuMuS5yten84OfXM&s=10",
+      "weights": ["0.5 kg", "1 kg", "1.5 kg"], "defaultWeight": "1 kg",
+      "rating": 4.8, "reviews": 267, "price": 999, "oldPrice": 1249, "discount": "20% off"
+    },
+    {
+      "id": 16, "name": "Oreo Chocolate Cheesecake", "categories": ["cheesecakes"], "tag": "Bestseller",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLR_6VRFQWi6FKY0dFdaWicCMn-yUEyGoDi4Y2OhnXs9p_9bAZOIvTVbK-&s=10",
+      "weights": ["500g", "1 kg"], "defaultWeight": "500g",
+      "rating": 4.9, "reviews": 341, "price": 1049, "oldPrice": 1299, "discount": "19% off"
+    },
+    {
+      "id": 17, "name": "Mango Cheesecake", "categories": ["cheesecakes"], "tag": "Seasonal",
+      "image": "https://sinfullyspicy.com/wp-content/uploads/2023/07/1200-by-1200-images.jpg",
+      "weights": ["500g", "1 kg"], "defaultWeight": "500g",
+      "rating": 4.7, "reviews": 176, "price": 1099, "oldPrice": null, "discount": null
+    },
+    {
+      "id": 18, "name": "Salted Caramel Cheesecake", "categories": ["cheesecakes"], "tag": null,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMcvPInD8e3jO8ZN58uSOAa4yVM3W14DGPbG1eisLXvENu25165ub5ReY&s=10",
+      "weights": ["500g", "1 kg"], "defaultWeight": "500g",
+      "rating": 4.8, "reviews": 223, "price": 1149, "oldPrice": 1399, "discount": "18% off"
+    },
+    {
+      "id": 19, "name": "Chocolate Éclair", "categories": ["pastries"], "tag": null,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk4BmXt2FPjqTR4VuTunOW-otQo05Q9eQ8XM1clplXKg&s=10",
+      "weights": ["1 Piece", "Box of 2"], "defaultWeight": "1 Piece",
+      "rating": 4.6, "reviews": 87, "price": 199, "oldPrice": null, "discount": null
+    },
+    {
+      "id": 20, "name": "Fruit Danish Pastry", "categories": ["pastries"], "tag": "Pastry",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH_77bo5AUA35BC2Id5LrkVE2kWdrQfxRQ_ZhzSjMhhA&s=10",
+      "weights": ["1 Piece", "Box of 2"], "defaultWeight": "1 Piece",
+      "rating": 4.5, "reviews": 64, "price": 179, "oldPrice": null, "discount": null
+    },
+    {
+      "id": 21, "name": "Hazelnut Praline Pastry", "categories": ["pastries"], "tag": null,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9ZI1_uXv1pDx2-ekTJhn-ubhhZd8r-vMfTIrnCrDUtQ&s=10",
+      "weights": ["1 Piece", "Box of 2"], "defaultWeight": "1 Piece",
+      "rating": 4.8, "reviews": 129, "price": 269, "oldPrice": 329, "discount": "18% off"
+    },
+    {
+      "id": 22, "name": "Chocolate Fudge Cupcakes", "categories": ["cupcakes"], "tag": "Bestseller",
+      "image": "https://barleyandsage.com/wp-content/uploads/2022/02/chocolate-fudge-cupcakes-0405.jpg",
+      "weights": ["Box of 4", "Box of 6"], "defaultWeight": "Box of 6",
+      "rating": 4.8, "reviews": 201, "price": 549, "oldPrice": 699, "discount": "21% off"
+    },
+    {
+      "id": 23, "name": "Red Velvet Cupcakes", "categories": ["cupcakes"], "tag": "Eggless",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlTsBHC14-9XElZQFwn9XE-48C0v9FtqzkOI3HMlO2AQ&s=10",
+      "weights": ["Box of 4", "Box of 6"], "defaultWeight": "Box of 4",
+      "rating": 4.7, "reviews": 154, "price": 399, "oldPrice": null, "discount": null
+    },
+    {
+      "id": 24, "name": "Lemon Zest Cupcakes", "categories": ["cupcakes"], "tag": null,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsfFFYVC8Kgo0P3NT83XFtHwv1YjLpGlymQ0VzGsxEIQ&s=10",
+      "weights": ["Box of 4", "Box of 6"], "defaultWeight": "Box of 4",
+      "rating": 4.6, "reviews": 77, "price": 379, "oldPrice": null, "discount": null
+    },
+    {
+      "id": 25, "name": "Funfetti Birthday Cupcakes", "categories": ["cupcakes"], "tag": "Limited",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqJFbOS3KmZ0wX_hH-2ZNz3trOp0UOQQf1gt5vT2nxig&s=10",
+      "weights": ["Box of 4", "Box of 6"], "defaultWeight": "Box of 6",
+      "rating": 4.9, "reviews": 188, "price": 549, "oldPrice": 649, "discount": "15% off"
+    },
+    {
+      "id": 26, "name": "Chocolate Hazelnut Cake", "categories": ["chocolate"], "tag": null,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbfNDhcL2yYsxC9iURGHmChYtvHoGdMqRTFo71gQaTpw&s=10",
+      "weights": ["0.5 kg", "1 kg"], "defaultWeight": "1 kg",
+      "rating": 4.8, "reviews": 239, "price": 1049, "oldPrice": 1299, "discount": "19% off"
+    },
+    {
+      "id": 27, "name": "Double Chocolate Brownie Cake", "categories": ["chocolate"], "tag": "Bestseller",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAQPKs8NRu7dTQi57fAo91Zm1bV2fL_1P2Jeus4G8n3Q&s=10",
+      "weights": ["0.5 kg", "1 kg"], "defaultWeight": "1 kg",
+      "rating": 4.9, "reviews": 302, "price": 1199, "oldPrice": null, "discount": null
+    },
+    {
+      "id": 28, "name": "Lemon Meringue Tart", "categories": ["tarts"], "tag": null,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS57VLadycWuc0_lobcbgD-82bfI3oG7UxdCoIyrXbksg&s=10",
+      "weights": ["6 Inch", "8 Inch"], "defaultWeight": "6 Inch",
+      "rating": 4.7, "reviews": 112, "price": 649, "oldPrice": 799, "discount": "19% off"
+    },
+    {
+      "id": 29, "name": "Apple Cinnamon Tart", "categories": ["tarts"], "tag": "Seasonal",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbtbv5CC3i7MhAqUdN9qtcgkKlOI-vhFwNbYg-nR1lyQ&s=10",
+      "weights": ["6 Inch", "8 Inch"], "defaultWeight": "6 Inch",
+      "rating": 4.6, "reviews": 85, "price": 579, "oldPrice": null, "discount": null
+    },
+    {
+      "id": 30, "name": "Chocolate Ganache Tart", "categories": ["tarts"], "tag": null,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9EyUODeKrT_deG8JzGlkseO7hZvvvd7Dujhl0X9-gQw&s=10",
+      "weights": ["6 Inch", "8 Inch"], "defaultWeight": "6 Inch",
+      "rating": 4.8, "reviews": 147, "price": 699, "oldPrice": 849, "discount": "18% off"
+    }
+  ]
+}
