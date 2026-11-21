@@ -2,11 +2,15 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 
+const mongoose = require("mongoose");
+const productRoutes = require("./routes/productRoutes");
+
 const app = express();
 const PORT = 3000;
 
 // JSON data padhne ke liye
 app.use(express.json());
+app.use("/api/products", productRoutes);
 
 // HTML, CSS, JS files browser ko dene ke liye
 app.use(express.static(__dirname));
@@ -136,7 +140,17 @@ app.get("/api/my-orders", function (req, res) {
     res.json({ success: true, orders: myOrders });
 });
 
-// ---- Server start ----
-app.listen(PORT, function () {
-    console.log("Server is live: http://localhost:" + PORT);
+async function start() {
+    if (process.env.MONGODB_URI) {
+        await mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 10000 });
+        console.log("Product database connected");
+    } else {
+        console.log("Set MONGODB_URI to enable the product API");
+    }
+    app.listen(PORT, "127.0.0.1", () => console.log("Bakery running at http://127.0.0.1:" + PORT));
+}
+
+start().catch(() => {
+    console.error("Atlas connection failed. Check the cluster, IP access list and database credentials.");
+    process.exitCode = 1;
 });
