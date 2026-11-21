@@ -8,21 +8,20 @@ import {
     deleteProduct
 } from "../controllers/productController.js";
 
+import {
+    protect,
+    adminOnly
+} from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 
-// Get all cakes
+// Public Routes
 router.get("/", getProducts);
-
-// Get single cake
 router.get("/:id", getProductById);
 
-// Add new cake
-router.post("/", createProduct);
-
-// Update cake
-router.put("/:id", updateProduct);
-
-// Delete cake
-router.delete("/:id", deleteProduct);
+// Admin Only Routes
+router.post("/", protect, adminOnly, createProduct);
+router.put("/:id", protect, adminOnly, updateProduct);
+router.delete("/:id", protect, adminOnly, deleteProduct);
 
 export default router;

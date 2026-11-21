@@ -3,7 +3,8 @@ import cors from "cors";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import productRoutes from "./routes/productRoutes.js";
-
+import authRoutes from "./routes/authRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 const app = express();
 
 // Get project root directory
@@ -17,6 +18,9 @@ app.use(express.json());
 
 // Product API
 app.use("/api/products", productRoutes);
+
+app.use("/api/auth", authRoutes);
+app.use("/api/orders", orderRoutes);
 
 // Block private project folders and files
 app.use((req, res, next) => {

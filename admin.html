@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | Sweet Treats Bakery</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="admin-layout">
+
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+
+            <div class="admin-logo">
+                <h2>Sweet Treats</h2>
+                <span>ADMIN PANEL</span>
+            </div>
+
+            <nav>
+                <a href="#" class="active">Dashboard</a>
+                <a href="#products">Manage Cakes</a>
+                <a href="#orders">Orders</a>
+                <a href="#customers">Customers</a>
+            </nav>
+
+            <button id="logoutBtn">Logout</button>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+
+            <header class="admin-header">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Welcome back, Admin!</p>
+                </div>
+
+                <span class="admin-badge">Administrator</span>
+            </header>
+
+            <!-- Statistics -->
+            <section class="stats-grid">
+
+                <div class="stat-card">
+                    <h3>Total Products</h3>
+                    <p id="totalProducts">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Total Orders</h3>
+                    <p id="totalOrders">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Total Customers</h3>
+                    <p id="totalCustomers">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Total Revenue</h3>
+                    <p id="totalRevenue">₹0</p>
+                </div>
+
+            </section>
+
+            <!-- Products -->
+            <section class="admin-section" id="products">
+
+                <div class="section-heading">
+                    <h2>Manage Cakes</h2>
+
+                    <button id="addProductBtn">
+                        + Add New Cake
+                    </button>
+                </div>
+
+                <div id="productsContainer">
+                    Loading products...
+                </div>
+
+            </section>
+
+            <!-- Orders -->
+            <section class="admin-section" id="orders">
+                <h2>Recent Orders</h2>
+
+                <div id="ordersContainer">
+                    Loading orders...
+                </div>
+            </section>
+
+            <!-- Customers -->
+            <section class="admin-section" id="customers">
+                <h2>Customers</h2>
+
+                <div id="customersContainer">
+                    Customer information will appear here.
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="admin.js"></script>
+
+</body>
+</html>
