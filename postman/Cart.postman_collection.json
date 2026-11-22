@@ -1,0 +1,651 @@
+{
+  "info": {
+    "name": "Sweet Treats Bakery — Cart verification",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Uses only a newly registered test customer and existing products. Never submits orders. Recommended: npm run test:cart:atlas from backend; this runner also verifies Atlas persistence and deletes its own temporary customer/cart. Tokens and passwords are runtime environment values; do not export a populated environment or raw run report."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5001",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Setup and persistence",
+      "item": [
+        {
+          "name": "Register isolated test customer",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (!pm.environment.get(\"testEmail\")) pm.environment.set(\"testEmail\", \"cart-verification-\" + pm.variables.replaceIn(\"{{$guid}}\") + \"@example.invalid\");",
+                  "if (!pm.environment.get(\"testPassword\")) pm.environment.set(\"testPassword\", pm.variables.replaceIn(\"{{$guid}}\") + \"aA1!\");"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "const bakeryResponse = pm.response.json();",
+                  "pm.test(\"New customer registered\", () => {",
+                  " pm.expect(bakeryResponse.success).to.eql(true);",
+                  " pm.expect(bakeryResponse.user.email).to.eql(pm.environment.get(\"testEmail\"));",
+                  " pm.expect(bakeryResponse.user.role).to.eql(\"customer\");",
+                  " pm.expect(bakeryResponse.token).to.be.a(\"string\").and.not.empty;",
+                  "});",
+                  "pm.environment.set(\"token\", bakeryResponse.token);",
+                  "pm.environment.set(\"userId\", bakeryResponse.user.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{baseUrl}}/api/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cart Verification\",\n  \"email\": \"{{testEmail}}\",\n  \"phone\": \"9000000000\",\n  \"password\": \"{{testPassword}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Login isolated test customer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "const bakeryResponse = pm.response.json();",
+                  "pm.test(\"Login returns the same customer\", () => {",
+                  " pm.expect(bakeryResponse.success).to.eql(true);",
+                  " pm.expect(bakeryResponse.user.id).to.eql(pm.environment.get(\"userId\"));",
+                  " pm.expect(bakeryResponse.user.role).to.eql(\"customer\");",
+                  " pm.expect(bakeryResponse.token).to.be.a(\"string\").and.not.empty;",
+                  "});",
+                  "pm.environment.set(\"token\", bakeryResponse.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{baseUrl}}/api/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{testEmail}}\",\n  \"password\": \"{{testPassword}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Read existing products",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "const products = pm.response.json().products;",
+                  "pm.test(\"Existing products are available\", () => pm.expect(products.length).to.be.above(0));",
+                  "const p = products.find(p => p.isAvailable && p.variants && p.variants.length && p.variants[0].price > 0);",
+                  "pm.test(\"Existing product has a valid variant\", () => pm.expect(p).to.be.an(\"object\"));",
+                  "if (p) {",
+                  " pm.environment.set(\"productId\", p._id);",
+                  " pm.environment.set(\"productName\", p.name);",
+                  " pm.environment.set(\"weight\", p.variants[0].label);",
+                  " pm.environment.set(\"unitPrice\", p.variants[0].price);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{baseUrl}}/api/products"
+          }
+        },
+        {
+          "name": "Read initial empty cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"New customer cart is empty\", () => pm.expect(pm.response.json().items).to.eql([]));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/api/cart"
+          }
+        },
+        {
+          "name": "Add existing product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Add succeeded\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/api/cart",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"{{productId}}\",\n  \"weight\": \"{{weight}}\",\n  \"qty\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Read persisted cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const bakeryResponse = pm.response.json();",
+                  "if (bakeryResponse.items && bakeryResponse.items[0]) pm.environment.set(\"cartItemId\", bakeryResponse.items[0]._id);",
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "const items = pm.response.json().items;",
+                  "pm.test(\"Correct persisted item and quantity\", () => {",
+                  " pm.expect(items).to.have.lengthOf(1);",
+                  " pm.expect(items[0]._id).to.eql(pm.environment.get(\"cartItemId\"));",
+                  " pm.expect(items[0].productId).to.eql(pm.environment.get(\"productId\"));",
+                  " pm.expect(items[0].qty).to.eql(1);",
+                  " pm.expect(items[0].price).to.eql(Number(pm.environment.get(\"unitPrice\")));",
+                  " pm.expect(items[0].weight).to.eql(pm.environment.get(\"weight\"));",
+                  " pm.expect(items[0].user).to.eql(pm.environment.get(\"userId\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/api/cart"
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 Update validation and removal",
+      "item": [
+        {
+          "name": "Update quantity to two",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Update succeeded\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/api/cart/{{cartItemId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"qty\": 2,\n  \"previousQty\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Read updated cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "const items = pm.response.json().items;",
+                  "pm.test(\"Correct persisted item and quantity\", () => {",
+                  " pm.expect(items).to.have.lengthOf(1);",
+                  " pm.expect(items[0]._id).to.eql(pm.environment.get(\"cartItemId\"));",
+                  " pm.expect(items[0].productId).to.eql(pm.environment.get(\"productId\"));",
+                  " pm.expect(items[0].qty).to.eql(2);",
+                  " pm.expect(items[0].price).to.eql(Number(pm.environment.get(\"unitPrice\")));",
+                  " pm.expect(items[0].weight).to.eql(pm.environment.get(\"weight\"));",
+                  " pm.expect(items[0].user).to.eql(pm.environment.get(\"userId\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/api/cart"
+          }
+        },
+        {
+          "name": "Reject stale quantity update",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"Conflict explained\", () => pm.expect(pm.response.json().message).to.eql(\"Cart changed. Please try again.\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/api/cart/{{cartItemId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"qty\": 3,\n  \"previousQty\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Reject zero quantity",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"Invalid quantity explained\", () => pm.expect(pm.response.json().message).to.eql(\"Quantity must be a positive whole number.\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/api/cart/{{cartItemId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"qty\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Reject unavailable variant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"Unavailable variant rejected\", () => pm.expect(pm.response.json().message).to.eql(\"This product or size is unavailable.\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/api/cart",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"{{productId}}\",\n  \"weight\": \"__cart_verification_invalid_variant__\",\n  \"qty\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Reject malformed item ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/api/cart/not-an-object-id",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"qty\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Reject unauthenticated cart access",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 401\", () => pm.response.to.have.status(401));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{baseUrl}}/api/cart"
+          }
+        },
+        {
+          "name": "Confirm rejected requests preserved cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "const items = pm.response.json().items;",
+                  "pm.test(\"Correct persisted item and quantity\", () => {",
+                  " pm.expect(items).to.have.lengthOf(1);",
+                  " pm.expect(items[0]._id).to.eql(pm.environment.get(\"cartItemId\"));",
+                  " pm.expect(items[0].productId).to.eql(pm.environment.get(\"productId\"));",
+                  " pm.expect(items[0].qty).to.eql(2);",
+                  " pm.expect(items[0].price).to.eql(Number(pm.environment.get(\"unitPrice\")));",
+                  " pm.expect(items[0].weight).to.eql(pm.environment.get(\"weight\"));",
+                  " pm.expect(items[0].user).to.eql(pm.environment.get(\"userId\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/api/cart"
+          }
+        },
+        {
+          "name": "Remove test cart item",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));",
+                  "pm.test(\"Delete has no response body\", () => pm.expect(pm.response.text()).to.eql(\"\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/api/cart/{{cartItemId}}"
+          }
+        },
+        {
+          "name": "Read empty cart after removal",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Cart is empty after removal\", () => pm.expect(pm.response.json().items).to.eql([]));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/api/cart"
+          }
+        }
+      ]
+    }
+  ]
+}

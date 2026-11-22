@@ -1,4 +1,5 @@
 import "dotenv/config";
+import mongoose from "mongoose";
 import app from "./app.js";
 import connectDB from "./config/database.js";
 
@@ -9,12 +10,15 @@ const startServer = async () => {
     try {
         await connectDB();
 
-        app.listen(PORT, () => {
-            console.log(`Bakery server running on port ${PORT}`);
+        await new Promise((resolve, reject) => {
+            app.listen(PORT, error => error ? reject(error) : resolve());
         });
+        console.log(`Bakery server running on port ${PORT}`);
 
     } catch (error) {
-        console.log("Server startup failed:", error.message);
+        console.error("Server startup failed:", error.code || error.name);
+        await mongoose.disconnect();
+        process.exitCode = 1;
     }
 };
 
