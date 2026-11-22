@@ -3,7 +3,9 @@ import express from "express";
 import {
     registerUser,
     loginUser,
-    getMe
+    getMe,
+    getAllCustomers,
+    updateCustomerPhone
 } from "../controllers/authController.js";
 
 import {
@@ -21,5 +23,13 @@ router.post("/login", loginUser);
 
 // Verify Admin
 router.get("/me", protect, adminOnly, getMe);
+router.get("/customers", protect, adminOnly, getAllCustomers);
 
+// UPDATE CUSTOMER PHONE (ADMIN ONLY)
+router.put(
+    "/customers/:id/phone",
+    protect,
+    adminOnly,
+    updateCustomerPhone
+);
 export default router;

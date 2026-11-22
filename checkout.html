@@ -135,7 +135,9 @@
                                     </p>
                                     <p class="qr-small">or any other UPI app</p>
                                     <p class="qr-timer">QR valid for <strong id="qrTime">05:00</strong> minutes</p>
-                                    <div class="qr-bar"><div class="qr-bar-fill" id="qrBar"></div></div>
+                                    <div class="qr-bar">
+                                        <div class="qr-bar-fill" id="qrBar"></div>
+                                    </div>
                                     <button type="button" class="qr-refresh" id="qrRefresh">Refresh QR</button>
                                 </div>
 
@@ -175,20 +177,28 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p class="pay-note"><strong>Note:</strong> Please ensure your card can be used for online
+                                <p class="pay-note"><strong>Note:</strong> Please ensure your card can be used for
+                                    online
                                     transactions.</p>
                             </div>
 
                             <!-- Net Banking -->
                             <div class="pay-panel" id="panelBank" style="display: none;">
                                 <div class="pay-card">
-                                    <label class="bank-row"><input type="radio" name="bank" value="State Bank of India"> State Bank of India</label>
-                                    <label class="bank-row"><input type="radio" name="bank" value="HDFC Bank"> HDFC Bank</label>
-                                    <label class="bank-row"><input type="radio" name="bank" value="ICICI Bank"> ICICI Bank</label>
-                                    <label class="bank-row"><input type="radio" name="bank" value="Kotak Mahindra Bank"> Kotak Mahindra Bank</label>
-                                    <label class="bank-row"><input type="radio" name="bank" value="Axis Bank"> Axis Bank</label>
-                                    <label class="bank-row"><input type="radio" name="bank" value="Punjab National Bank"> Punjab National Bank</label>
-                                    <label class="bank-row"><input type="radio" name="bank" value="Bank of Baroda"> Bank of Baroda</label>
+                                    <label class="bank-row"><input type="radio" name="bank" value="State Bank of India">
+                                        State Bank of India</label>
+                                    <label class="bank-row"><input type="radio" name="bank" value="HDFC Bank"> HDFC
+                                        Bank</label>
+                                    <label class="bank-row"><input type="radio" name="bank" value="ICICI Bank"> ICICI
+                                        Bank</label>
+                                    <label class="bank-row"><input type="radio" name="bank" value="Kotak Mahindra Bank">
+                                        Kotak Mahindra Bank</label>
+                                    <label class="bank-row"><input type="radio" name="bank" value="Axis Bank"> Axis
+                                        Bank</label>
+                                    <label class="bank-row"><input type="radio" name="bank"
+                                            value="Punjab National Bank"> Punjab National Bank</label>
+                                    <label class="bank-row"><input type="radio" name="bank" value="Bank of Baroda"> Bank
+                                        of Baroda</label>
                                     <small class="error" id="bankError"></small>
                                 </div>
                             </div>
@@ -196,7 +206,8 @@
                             <!-- Gift Card -->
                             <div class="pay-panel" id="panelGift" style="display: none;">
                                 <div class="pay-card">
-                                    <p class="gift-info">Enter the voucher number and PIN from your Sweet Treats gift card</p>
+                                    <p class="gift-info">Enter the voucher number and PIN from your Sweet Treats gift
+                                        card</p>
                                     <div class="form-group">
                                         <label for="giftNumber">Voucher Number</label>
                                         <input type="text" id="giftNumber" placeholder="Enter 16 digit voucher number"
@@ -607,53 +618,73 @@
                 if (validateForm() === false) {
                     return;               // galti hai to yahin ruk jao
                 }
-
                 const order = {
-                    orderId: "ORD" + Date.now(),
-                    userEmail: loggedUser ? loggedUser.email : "",
-                    name: document.getElementById("fullName").value.trim(),
-                    phone: document.getElementById("phone").value.trim(),
-                    email: document.getElementById("email").value.trim(),
-                    address: document.getElementById("address").value.trim(),
-                    city: document.getElementById("city").value.trim(),
-                    pincode: document.getElementById("pincode").value.trim(),
-                    deliveryDate: document.getElementById("deliveryDate").value,
-                    payment: selectedPayment,
-                    paymentDetail: getPaymentDetail(),
-                    items: items,
-                    total: total,
-                    orderDate: new Date().toLocaleString()
-                };
+                    customer: {
+                        name: document.getElementById("fullName").value.trim(),
+                        email: document.getElementById("email").value.trim(),
+                        phone: document.getElementById("phone").value.trim()
+                    },
 
+                    items: items.map(item => ({
+                        productId: item.productId,
+                        variant: item.weight,
+                        quantity: Number(item.qty)
+                    })),
+
+                    address:
+                        document.getElementById("address").value.trim() + ", " +
+                        document.getElementById("city").value.trim() + ", " +
+                        document.getElementById("pincode").value.trim(),
+
+                    paymentMethod: selectedPayment
+                };
                 // Order ko server pe bhejo
+                // Send order to MongoDB Backend
                 fetch("/api/orders", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
                     body: JSON.stringify(order)
                 })
-                    .then(function (response) {
-                        return response.json();
+                    .then(async response => {
+                        const data = await response.json();
+
+                        if (!response.ok) {
+                            throw new Error(data.message || "Order placement failed");
+                        }
+
+                        return data;
                     })
-                    .then(function (data) {
+                    .then(data => {
+
                         if (data.success) {
-                            // Order ho gaya, ab cart / buyNow saaf karo
+
+                            // Clear cart after successful order
                             if (buyNowItem) {
                                 localStorage.removeItem("buyNow");
                             } else {
                                 saveCart([]);
                             }
 
+                            const savedOrder = data.order;
+
                             document.getElementById("checkoutPage").innerHTML =
                                 '<div class="box success-box" style="grid-column: 1 / 3;">' +
                                 '<h2>🎉 Order Placed!</h2><br>' +
-                                '<p>Thank you, ' + order.name + '. Your order ID is <strong>' + order.orderId + '</strong></p><br>' +
+                                '<p>Thank you, ' + order.customer.name +
+                                '. Your Order ID is <strong>' + savedOrder._id +
+                                '</strong></p><br>' +
                                 '<a href="index.html" class="checkout-btn">Continue Shopping</a></div>';
+
                         } else {
                             alert("Order save nahi hua: " + data.message);
                         }
+
                     })
-                    .catch(function () {
-                        alert("Unable to connect to the server. Please make sure the server is running.");
+                    .catch(error => {
+                        console.error("Order Error:", error);
+                        alert(error.message || "Unable to connect to the server.");
                     });
             });
         }

@@ -650,6 +650,7 @@ async function loadAdminCustomers() {
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Mobile Number</th>
                         <th>Role</th>
                         <th>Registered On</th>
                     </tr>
@@ -659,6 +660,7 @@ async function loadAdminCustomers() {
                         <tr>
                             <td>${escapeHTML(customer.name)}</td>
                             <td>${escapeHTML(customer.email)}</td>
+                            <td>${escapeHTML(customer.phone || "Not provided")}</td>
                             <td>${escapeHTML(customer.role)}</td>
                             <td>${new Date(customer.createdAt).toLocaleDateString()}</td>
                         </tr>

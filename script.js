@@ -23,38 +23,104 @@ function updateCartCount() {
 }
 
 // ---- Add to Cart button ----
-const addButtons = document.querySelectorAll(".add-to-cart-btn");
 
-addButtons.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-        // jis card ka button dabaya, uska data nikalo
-        const card = btn.closest(".product-card");
 
-        const name = card.querySelector(".product-title").textContent;
-        const priceText = card.querySelector(".current-price").textContent;
-        const price = Number(priceText.replace("₹", "").replace(/,/g, ""));
-        const image = card.querySelector("img").src;
-        const weight = card.querySelector(".weight-btn.active").textContent;
+// ADD TO CART - Supports Static and Dynamic Products
 
-        const cart = getCart();
+document.addEventListener("click", function (event) {
 
-        // check karo ye product (same weight) pehle se cart me hai ya nahi
-        let found = false;
-        cart.forEach(function (item) {
-            if (item.name === name && item.weight === weight) {
-                item.qty = item.qty + 1;
-                found = true;
+    const btn = event.target.closest(".add-to-cart-btn");
+
+    if (!btn) return;
+
+    const card = btn.closest(".product-card");
+
+    if (!card) return;
+
+    const name = card.querySelector(".product-title").textContent.trim();
+
+    const priceText = card.querySelector(".current-price").textContent;
+
+    const price = Number(
+        priceText.replace("₹", "").replace(/,/g, "")
+    );
+
+    const image = card.querySelector("img").src;
+
+    const activeWeight = card.querySelector(".weight-btn.active");
+
+    const weight = activeWeight ? activeWeight.textContent.trim() : "";
+
+    const productId = card.dataset.id || null;
+
+    if (!productId) {
+        alert("Product information is missing. Please refresh the page.");
+        return;
+    }
+
+    const cart = getCart();
+
+    const existingItem = cart.find(item =>
+        item.productId === productId &&
+        item.weight === weight
+    );
+
+    if (existingItem) {
+        existingItem.qty += 1;
+    } else {
+        cart.push({
+            productId,
+            name,
+            price,
+            image,
+            weight,
+            qty: 1
+        });
+    }
+
+    saveCart(cart);
+
+    showCartToast(name);
+
+});
+// CONNECT HOMEPAGE PRODUCTS WITH MONGODB IDs
+
+async function attachHomepageProductIds() {
+    try {
+        const response = await fetch("/api/products");
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error("Products could not be loaded");
+        }
+
+        const products = data.products || [];
+
+        document.querySelectorAll(".product-card").forEach(card => {
+            const title = card.querySelector(".product-title");
+
+            if (!title || card.dataset.id) return;
+
+            const productName = title.textContent.trim().toLowerCase();
+
+            const matchedProduct = products.find(
+                product => product.name.trim().toLowerCase() === productName
+            );
+
+            if (matchedProduct) {
+                card.dataset.id = matchedProduct._id;
             }
         });
 
-        // agar nahi hai to naya add karo
-        if (found === false) {
-            cart.push({ name: name, price: price, image: image, weight: weight, qty: 1 });
-        }
-saveCart(cart);
-showCartToast(name);
-    });
-});
+        console.log("Homepage MongoDB Product IDs connected!");
+
+    } catch (error) {
+        console.error("Homepage Product ID Error:", error);
+    }
+}
+
+// Run on page load
+attachHomepageProductIds();
 
 
 // page khulte hi count update karo
@@ -276,8 +342,10 @@ document.querySelectorAll(".product-card").forEach(function (card) {
         const price = Number(priceText.replace("₹", "").replace(/,/g, ""));
         const image = card.querySelector("img").src;
         const weight = card.querySelector(".weight-btn.active").textContent;
+        const productId = card.dataset.id || null;
 
-        const item = { name: name, price: price, image: image, weight: weight, qty: 1 };
+
+        const item = { productId: productId, name: name, price: price, image: image, weight: weight, qty: 1 };
 
         // sirf ye ek item "buyNow" me save karo
         localStorage.setItem("buyNow", JSON.stringify(item));
