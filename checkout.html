@@ -259,13 +259,15 @@
     <script src="script.js"></script>
     <script>
         // ---------- 1. Kaun se items checkout me hain ----------
+        async function initializeCheckout() {
         const buyNowItem = JSON.parse(localStorage.getItem("buyNow"));
         let items = [];
 
         if (buyNowItem) {
             items = [buyNowItem];      // Buy Now se aaye
         } else {
-            items = getCart();         // Cart se aaye
+            await cartReady;
+            items = cartItems;         // Cart se aaye
         }
 
         // ---------- 2. Order summary dikhana ----------
@@ -275,6 +277,7 @@
         if (items.length === 0) {
             document.getElementById("checkoutPage").innerHTML =
                 '<div class="box success-box"><h3>Nothing to checkout 😢</h3><br><a href="index.html" class="checkout-btn">Go to Shop</a></div>';
+            return;
         }
 
         items.forEach(function (item) {
@@ -656,7 +659,7 @@
 
                         return data;
                     })
-                    .then(data => {
+                    .then(async data => {
 
                         if (data.success) {
 
@@ -664,7 +667,13 @@
                             if (buyNowItem) {
                                 localStorage.removeItem("buyNow");
                             } else {
-                                saveCart([]);
+                                try {
+                                    await Promise.all(items.map(item => cartRequest("DELETE",
+                                        "/" + item._id + "?version=" + encodeURIComponent(item.updatedAt))));
+                                    await refreshCart();
+                                } catch {
+                                    alert("Order placed. Check your cart before placing another order.");
+                                }
                             }
 
                             const savedOrder = data.order;
@@ -688,6 +697,10 @@
                     });
             });
         }
+        }
+        initializeCheckout().catch(error => {
+            document.getElementById("checkoutPage").textContent = error.message;
+        });
     </script>
 </body>
 

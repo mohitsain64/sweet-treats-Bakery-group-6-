@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import productRoutes from "./routes/productRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
 const app = express();
 
 // Get project root directory
@@ -21,6 +22,7 @@ app.use("/api/products", productRoutes);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/cart", cartRoutes);
 
 // Block private project folders and files
 app.use((req, res, next) => {

@@ -113,27 +113,15 @@
         }
 
         // Wishlist se cart me bhejna
-        function moveToCart(index) {
+        async function moveToCart(index) {
             const list = getWishlist();
             const item = list[index];
-
-            const cart = getCart();
-
-            let found = false;
-            cart.forEach(function (c) {
-                if (c.name === item.name && c.weight === item.weight) {
-                    c.qty = c.qty + 1;
-                    found = true;
-                }
-            });
-
-            if (found === false) {
-                cart.push({ name: item.name, price: item.price, image: item.image, weight: item.weight, qty: 1 });
+            try {
+                await addCartItem(item);
+            } catch (error) {
+                alert(error.message);
+                return;
             }
-
-            saveCart(cart);
-
-            // cart me chala gaya, ab wishlist se hata do
             list.splice(index, 1);
             saveWishlist(list);
             showWishlist();

@@ -121,88 +121,18 @@
             showWishlist();
         }
 
-        function moveToCart(index) {
+        async function moveToCart(index) {
             const list = getWishlist();
             const item = list[index];
-            const cart = getCart();
-
-            let found = false;
-            cart.forEach(function (c) {
-                if (c.name === item.name && c.weight === item.weight) {
-                    c.qty = c.qty + 1;
-                    found = true;
-                }
-            });
-
-            if (found === false) {
-                cart.push({ name: item.name, price: item.price, image: item.image, weight: item.weight, qty: 1 });
+            try {
+                await addCartItem(item);
+            } catch (error) {
+                alert(error.message);
+                return;
             }
-
-            saveCart(cart);
             list.splice(index, 1);
             saveWishlist(list);
             showWishlist();
-        }
-
-        // ---------- Cart dikhana ----------
-        function showCart() {
-            const cartItemsBox = document.getElementById("cartItems");
-            const cartTotalBox = document.getElementById("cartTotal");
-            const checkoutBtn = document.getElementById("checkoutBtn");
-            const cart = getCart();
-            let grandTotal = 0;
-
-            cartItemsBox.innerHTML = "";
-
-            if (cart.length === 0) {
-                cartItemsBox.innerHTML = "<p>Your cart is empty 😢</p>";
-                cartTotalBox.textContent = "";
-                checkoutBtn.style.display = "none";
-                return;
-            }
-
-            cart.forEach(function (item, index) {
-                const itemTotal = item.price * item.qty;
-                grandTotal = grandTotal + itemTotal;
-
-                cartItemsBox.innerHTML += `
-                <div class="cart-item">
-                    <img src="${item.image}" alt="${item.name}">
-                    <div class="cart-info">
-                        <h4>${item.name}</h4>
-                        <p>Weight: ${item.weight}</p>
-                        <p>Price: ₹${item.price}</p>
-                    </div>
-                    <div class="qty-box">
-                        <button onclick="changeQty(${index}, -1)">-</button>
-                        <span>${item.qty}</span>
-                        <button onclick="changeQty(${index}, 1)">+</button>
-                    </div>
-                    <strong>₹${itemTotal}</strong>
-                    <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
-                </div>
-            `;
-            });
-
-            cartTotalBox.textContent = "Total: ₹" + grandTotal;
-            checkoutBtn.style.display = "inline-block";
-        }
-
-        function changeQty(index, change) {
-            const cart = getCart();
-            cart[index].qty = cart[index].qty + change;
-            if (cart[index].qty < 1) {
-                cart[index].qty = 1;
-            }
-            saveCart(cart);
-            showCart();
-        }
-
-        function removeItem(index) {
-            const cart = getCart();
-            cart.splice(index, 1);
-            saveCart(cart);
-            showCart();
         }
 
         // ---------- Profile, Tabs, Orders ----------

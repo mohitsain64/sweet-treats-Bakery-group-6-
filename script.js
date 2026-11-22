@@ -1,88 +1,129 @@
-// ---- Cart ka data localStorage se lena ----
-function getCart() {
-    return JSON.parse(localStorage.getItem("cart")) || [];
-}
+let cartItems = [];
 
-// ---- Cart ka data localStorage me save karna ----
-function saveCart(cart) {
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
-}
-
-// ---- Navbar me cart ki total quantity dikhana ----
-function updateCartCount() {
-    const cart = getCart();
-    let total = 0;
-    cart.forEach(function (item) {
-        total = total + item.qty;
+async function cartRequest(method, path = "", body) {
+    const response = await fetch("/api/cart" + path, {
+        method,
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("userToken"),
+            "Content-Type": "application/json"
+        },
+        body: body === undefined ? undefined : JSON.stringify(body)
     });
-    const countBox = document.getElementById("cartCount");
-    if (countBox) {
-        countBox.textContent = total;
-    }
+    if (response.status === 204) return;
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || "Could not load the cart.");
+    return data;
 }
 
-// ---- Add to Cart button ----
+async function refreshCart() {
+    const data = await cartRequest("GET");
+    cartItems = data.items;
+    const badge = document.getElementById("cartCount");
+    if (badge) badge.textContent = cartItems.reduce((sum, item) => sum + item.qty, 0);
+    if (document.getElementById("cartItems")) showCart();
+}
 
+async function resolveCartProduct(item) {
+    if (item.productId) return item.productId;
+    const response = await fetch("/api/products");
+    if (!response.ok) throw new Error("Could not load products.");
+    const { products } = await response.json();
+    const product = products.find(p => p.name.trim().toLowerCase() === item.name.trim().toLowerCase());
+    if (!product) throw new Error(item.name + " is no longer available.");
+    return product._id;
+}
 
-// ADD TO CART - Supports Static and Dynamic Products
+async function initializeCart() {
+    if (!getUser()) return;
+    const legacy = JSON.parse(localStorage.getItem("cart") || "[]");
+    // Only discard each old entry after MongoDB acknowledges the import.
+    for (const item of [...legacy]) {
+        try {
+            const productId = await resolveCartProduct(item);
+            await cartRequest("POST", "", { productId, weight: item.weight, qty: item.qty, importLegacy: true });
+            legacy.splice(legacy.indexOf(item), 1);
+            localStorage.setItem("cart", JSON.stringify(legacy));
+        } catch (error) {
+            console.warn("Previous cart entry retained:", error.message);
+        }
+    }
+    if (!legacy.length) localStorage.removeItem("cart");
+    await refreshCart();
+}
 
-document.addEventListener("click", function (event) {
+async function addCartItem(item) {
+    await cartReady;
+    const productId = await resolveCartProduct(item);
+    await cartRequest("POST", "", { productId, weight: item.weight });
+    await refreshCart();
+}
 
-    const btn = event.target.closest(".add-to-cart-btn");
-
-    if (!btn) return;
-
-    const card = btn.closest(".product-card");
-
-    if (!card) return;
-
-    const name = card.querySelector(".product-title").textContent.trim();
-
-    const priceText = card.querySelector(".current-price").textContent;
-
-    const price = Number(
-        priceText.replace("₹", "").replace(/,/g, "")
-    );
-
-    const image = card.querySelector("img").src;
-
-    const activeWeight = card.querySelector(".weight-btn.active");
-
-    const weight = activeWeight ? activeWeight.textContent.trim() : "";
-
-    const productId = card.dataset.id || null;
-
-    if (!productId) {
-        alert("Product information is missing. Please refresh the page.");
+function showCart() {
+    const box = document.getElementById("cartItems");
+    const total = document.getElementById("cartTotal");
+    const checkout = document.getElementById("checkoutBtn");
+    box.replaceChildren();
+    checkout.style.display = cartItems.length ? "inline-block" : "none";
+    total.textContent = "";
+    if (!cartItems.length) {
+        box.textContent = "Your cart is empty 😢";
         return;
     }
-
-    const cart = getCart();
-
-    const existingItem = cart.find(item =>
-        item.productId === productId &&
-        item.weight === weight
-    );
-
-    if (existingItem) {
-        existingItem.qty += 1;
-    } else {
-        cart.push({
-            productId,
-            name,
-            price,
-            image,
-            weight,
-            qty: 1
-        });
+    let amount = 0;
+    for (const item of cartItems) {
+        const row = document.createElement("div");
+        row.className = "cart-item";
+        row.innerHTML = '<img alt=""><div class="cart-info"><h4></h4><p></p><p></p></div>' +
+            '<div class="qty-box"><button>-</button><span></span><button>+</button></div>' +
+            '<strong></strong><button class="remove-btn">Remove</button>';
+        const image = row.querySelector("img");
+        image.src = item.image;
+        image.alt = item.name;
+        row.querySelector("h4").textContent = item.name;
+        const [weight, price] = row.querySelectorAll("p");
+        weight.textContent = "Weight: " + item.weight;
+        price.textContent = "Price: ₹" + item.price;
+        row.querySelector("span").textContent = item.qty;
+        row.querySelector("strong").textContent = "₹" + item.price * item.qty;
+        const [minus, plus, remove] = row.querySelectorAll("button");
+        minus.disabled = item.qty === 1;
+        async function change(method, qty) {
+            for (const button of [minus, plus, remove]) button.disabled = true;
+            try {
+                await cartRequest(method, "/" + item._id,
+                    method === "PATCH" ? { qty, previousQty: item.qty } : undefined);
+            } catch (error) {
+                alert(error.message);
+            } finally {
+                await refreshCart().catch(error => { box.textContent = error.message; });
+            }
+        }
+        minus.onclick = () => change("PATCH", item.qty - 1);
+        plus.onclick = () => change("PATCH", item.qty + 1);
+        remove.onclick = () => change("DELETE");
+        box.appendChild(row);
+        amount += item.price * item.qty;
     }
+    total.textContent = "Total: ₹" + amount;
+}
 
-    saveCart(cart);
-
-    showCartToast(name);
-
+document.addEventListener("click", async event => {
+    const button = event.target.closest(".add-to-cart-btn");
+    if (!button) return;
+    const card = button.closest(".product-card");
+    const name = card.querySelector(".product-title").textContent.trim();
+    const weight = card.querySelector(".weight-btn.active")?.textContent.trim();
+    button.disabled = true;
+    try {
+        await addCartItem({ name, weight, productId: card.dataset.id });
+        showCartToast(name);
+    } catch (error) {
+        alert(error.message);
+    } finally {
+        button.disabled = false;
+    }
 });
+
 // CONNECT HOMEPAGE PRODUCTS WITH MONGODB IDs
 
 async function attachHomepageProductIds() {
@@ -364,6 +405,7 @@ function getUser() {
 // ---- Logout ----
 function logout() {
     localStorage.removeItem("user");
+    localStorage.removeItem("userToken");
     window.location.href = "index.html";
 }
 
@@ -493,7 +535,14 @@ if (slides.length > 0 && dotsBox) {
     showSlide(0);
     restartTimer();
 }
-updateCartCount();
+const cartReady = initializeCart();
+cartReady.catch(error => {
+    const box = document.getElementById("cartItems");
+    if (box) box.textContent = error.message;
+    const checkout = document.getElementById("checkoutBtn");
+    if (checkout) checkout.style.display = "none";
+    console.warn("Cart unavailable:", error.message);
+});
 
 function showCartToast(productName) {
     // Remove previous notification
